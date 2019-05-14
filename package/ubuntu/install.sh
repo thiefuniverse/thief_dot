@@ -8,7 +8,7 @@ update_cc="sudo apt update"
 # git : repo management tool
 # jq  : json parser
 # tig : good git tool
-$incc git jq tig 
+$incc git jq tig
 
 # basic edit tool
 $incc vim vi
