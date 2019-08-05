@@ -26,7 +26,8 @@ $incc sudo
 
 # zsh
 # zsh : a wonderful command line interpreter
-$incc zsh
+$incc zsh openssh-server
+# sudo /etc/init.d/ssh start
 
 # fasd
 # fasd : jump directory tool

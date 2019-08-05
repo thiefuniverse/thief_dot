@@ -1,22 +1,5 @@
 #!/bin/bash
 
-introduction(){
-    echo "Introduct: Thief Plan"
-    echo "Use all config files of this project to manage my terminal working environment."
-    echo "It will contain all shell scripts I (maybe you) need."
-}
-
-help(){
-    
-}
-# Help: THIEF PLAN
-# add THIEF_PLAN_HOME environment variable to your .bashrc.
-
-if [ "$THIEF_PLAN_HOME" == "" ]; then
-    echo "you didn't set THIEF_PLAN_HOME environment variable, please set it."
-    echo "you can try to run './setup.sh set' to add this environment variable."
-    exit 1
-fi
 # backup old
 backup_dir=backup
 if [ ! -d $backup_dir ]; then
