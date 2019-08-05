@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# check number
+# todo
+
+
+
 # run one command for n times
 # example: run_n_times 4 ls : run command "ls" for 4 times.
 function run_n_times() {
