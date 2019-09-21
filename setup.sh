@@ -1,5 +1,33 @@
 #!/bin/bash
 
+# ******config area******
+
+# you can config your self command name
+config_tool=ts
+
+# if you don't use bash or zsh, please add it by yourself.
+# add to .bash_profile for mac
+config_list=(~/.zshrc
+            ~/.bashrc
+            ~/.bash_profile
+            )
+
+# these two lines will be added to your bash file (like .bashrc, .zshrc) to make a flag.
+config_start_line="#******thief plan settings begin******"
+config_start_flag="thief plan settings begin"
+config_end_line="#******thief plan settings end******"
+config_end_flag="thief plan settings end"
+# ******config area******
+
+
+current_file_name=$(basename "$0")
+current_path=$(pwd)
+config_home_path=$current_path
+THIEF_HOME_PATH=$config_home_path/home
+
+# export common shell script
+. $THIEF_HOME_PATH/.utils.sh
+
 introduction(){
     echo "Introduct: Thief Plan"
     echo "Use all config files of this project to manage my terminal working environment."
@@ -7,43 +35,90 @@ introduction(){
 }
 
 help(){
-    
+   introduction
+   echo "Usage: $config_tool  [option]"
+   echo "option:"
+   echo "       -h/--help    print help info."
+   echo "       set          add config tool alias to your dot file, such as .bashrc, .zshrc, etc."
+   echo "       on           open your personal terminal environment."
+   echo "       off          close your personal terminal environment."
+   echo "       update       update your personal termial environment."
+   echo "       clean        clean your personal termial environment."
+   exit 0 
 }
-# Help: THIEF PLAN
-# add THIEF_PLAN_HOME environment variable to your .bashrc.
 
-if [ "$THIEF_PLAN_HOME" == "" ]; then
-    echo "you didn't set THIEF_PLAN_HOME environment variable, please set it."
-    echo "you can try to run './setup.sh set' to add this environment variable."
+# Help: THIEF PLAN
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
+    help
+    exit 0
+fi
+
+if [ "$1" == "set" ] || [ "$1" == "force_set" ]; then
+    for f in ${config_list[@]}; do
+	# judge alias exists or not.
+        alias_existed=`grep "alias $config_tool" $f -c 2> /dev/null`
+	if [ "$alias_existed" = "" ]; then
+            alias_existed=0
+        fi
+
+	# if file exists and has no $config_tool alias, we will add it to this file.
+        if [ -f $f ]; then
+	    if [ "$1" == "force_set" ] && [ $alias_existed != 0 ]; then
+		 echo "force reset... remove old settings..."
+                 clean_file_between_flags $f "$config_start_flag" "$config_end_flag"
+		 echo "remove completedly"
+		 alias_existed=0
+            fi
+	    if [ $alias_existed = 0 ]; then
+		echo "$config_start_line" >> $f
+		echo "THIEF_HOME_PATH=$THIEF_HOME_PATH" >> $f
+                echo "alias $config_tool=$config_home_path/$current_file_name" >> $f
+#		echo "thief_status=\$(cat $THIEF_HOME_PATH/.thief_status)" >> $f
+#		echo ". $THIEF_HOME_PATH/.alias.sh $THIEF_HOME_PATH \$thief_status" >> $f 
+		echo ". $THIEF_HOME_PATH/.alias.sh $THIEF_HOME_PATH " >> $f 
+		echo "$config_end_line" >> $f
+	        echo "add alias $config_tool to $f"
+            else
+		echo "$f has alias $config_tool, dont't set again."
+            fi
+        fi
+    done
+fi
+
+# if THIEF_HOME_PATH doesn't be set, return error.
+has_set=0
+for f in ${config_list[@]}; do
+    if [ -f $f ]; then
+        alias_existed=`grep "alias $config_tool" $f -c 2> /dev/null`
+	if [ "$alias_existed" = "" ]; then
+            alias_existed=0
+        fi
+	if [ ! $alias_existed = 0 ]; then
+            has_set=1    
+	fi
+    fi
+done
+
+if [ $has_set = 0 ]; then
+    echo "you didn't set THIEF_HOME_PATH environment variable, please set it."
+    echo "you can try to run '$current_file_name' to add this environment variable to your bashrc file."
     exit 1
 fi
-# backup old
-backup_dir=backup
-if [ ! -d $backup_dir ]; then
-    mkdir $backup_dir
-fi
-backup_status=$(jq ".backup_done" backup_status.json)
-echo "status: $backup_status"
-if [ $backup_status != "\"true\"" ]; then
-    # this is backup file list.
-    backup_list=(~/.zshrc 
-                ~/.oh-my-zsh 
-                ~/.vim
-                ~/.vscode
-                ~/.emacs.d
-                )
 
-    echo "start backup..."
-    for f in ${backup_list[@]}; do
-        dir_name=$(dirname $f)
-        base_name=$(basename $f)
-        echo "backup... dir: " $dir_name "base: " $base_name
-        rm -rf $backup_dir/$base_name
-        cp -r $f $backup_dir
+if [ "$1" == "on" ]; then
+     echo "on" > $THIEF_HOME_PATH/.thief_status
+     exit 0       
+elif [ "$1" == "off" ]; then
+     echo "off" > $THIEF_HOME_PATH/.thief_status
+     exit 0
+elif [ "$1" == "update" ]; then
+     echo "on" > $THIEF_HOME_PATH/.thief_status
+     exit 0
+elif [ "$1" == "clean" ]; then
+    for f in ${config_list[@]}; do
+        if [ -f $f ]; then
+            clean_file_between_flags $f "$config_start_flag" "$config_end_flag"
+	fi
     done
-    echo '{ "backup_done":"true"}' > backup_status.json
-    echo "backup done!"
-else
-    echo "backup has been done."
 fi
-# setup new
+
