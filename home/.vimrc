@@ -7,11 +7,9 @@ syntax on
 let mapleader = ","
 let g:mapleader = ","
 
-
-"set bundles"
-if filereadable(expand("~/.vimrc.bundles"))
-    source ~/.vimrc.bundles
-endif
+" 使用jk来替换Esc键
+set cpo-=<
+imap jk <Esc>
 
 set shortmess=atI
 set noswapfile
