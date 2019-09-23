@@ -29,7 +29,7 @@ THIEF_HOME_PATH=$config_home_path/home
 . $THIEF_HOME_PATH/.utils.sh
 
 introduction(){
-    echo "Introduct: Thief Plan"
+    echo "Introduction: Thief Plan"
     echo "Use all config files of this project to manage my terminal working environment."
     echo "It will contain all shell scripts I (maybe you) need."
 }
@@ -44,6 +44,7 @@ help(){
    echo "       off          close your personal terminal environment."
    echo "       update       update your personal termial environment."
    echo "       clean        clean your personal termial environment."
+   echo "       status       show current config tool status."
    exit 0 
 }
 
@@ -87,6 +88,7 @@ fi
 
 # if THIEF_HOME_PATH doesn't be set, return error.
 has_set=0
+target_config_file=
 for f in ${config_list[@]}; do
     if [ -f $f ]; then
         alias_existed=`grep "alias $config_tool" $f -c 2> /dev/null`
@@ -94,6 +96,7 @@ for f in ${config_list[@]}; do
             alias_existed=0
         fi
 	if [ ! $alias_existed = 0 ]; then
+            target_config_file=$f
             has_set=1    
 	fi
     fi
@@ -107,12 +110,15 @@ fi
 
 if [ "$1" == "on" ]; then
      echo "on" > $THIEF_HOME_PATH/.thief_status
+     echo "You start personal terminal environment, activate it by running 'source $target_config_file'"
      exit 0       
 elif [ "$1" == "off" ]; then
      echo "off" > $THIEF_HOME_PATH/.thief_status
+     echo "You shut down personal terminal environment, deactivate it by running 'source $target_config_file'"
      exit 0
 elif [ "$1" == "update" ]; then
      echo "on" > $THIEF_HOME_PATH/.thief_status
+     echo "You start personal terminal environment, activate it by running 'source $target_config_file'"
      exit 0
 elif [ "$1" == "clean" ]; then
     for f in ${config_list[@]}; do
@@ -120,5 +126,8 @@ elif [ "$1" == "clean" ]; then
             clean_file_between_flags $f "$config_start_flag" "$config_end_flag"
 	fi
     done
+    echo "You have cleanned your personal terminal environment. welcome to back again! :)"
+elif [ "$1" == "status" ]; then
+    echo "Your personal terminal environment's current status:" $(cat $THIEF_HOME_PATH/.thief_status)
 fi
 
