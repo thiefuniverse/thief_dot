@@ -15,6 +15,9 @@ if empty(glob('$THIEF_HOME_PATH/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" load plug plugin
+source $THIEF_HOME_PATH/.vim/autoload/plug.vim
+
 " plugin management
 call plug#begin('$THIEF_HOME_PATH/.vim/plugged')
 

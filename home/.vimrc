@@ -67,9 +67,9 @@ set shiftwidth=4
 set softtabstop=4
 
 " set background
-set t_Co=256
-set background=dark
-let g:solarized_termcolors=256
+"set t_Co=256
+"set background=dark
+"let g:solarized_termcolors=256
 colorscheme solarized
 
 " 快速open file
