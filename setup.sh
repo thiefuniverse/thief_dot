@@ -23,10 +23,6 @@ config_end_flag="thief plan settings end"
 current_file_name=$(basename "$0")
 current_path=$(pwd)
 config_home_path=$current_path
-THIEF_HOME_PATH=$config_home_path/home
-
-# export common shell script
-. $THIEF_HOME_PATH/.utils.sh
 
 introduction(){
     echo "Introduction: Thief Plan"
@@ -55,6 +51,12 @@ if [ "$1" == "-h" ] || [ "$1" == "--help" ]; then
 fi
 
 if [ "$1" == "set" ] || [ "$1" == "force_set" ]; then
+    # we add THIEF_HOME_PATH to your dot init file.
+    THIEF_HOME_PATH=$config_home_path/home
+
+    # export common shell script
+    . $THIEF_HOME_PATH/.utils.sh
+
     for f in ${config_list[@]}; do
 	# judge alias exists or not.
         alias_existed=`grep "alias $config_tool" $f -c 2> /dev/null`
@@ -72,7 +74,7 @@ if [ "$1" == "set" ] || [ "$1" == "force_set" ]; then
             fi
 	    if [ $alias_existed = 0 ]; then
 		echo "$config_start_line" >> $f
-		echo "THIEF_HOME_PATH=$THIEF_HOME_PATH" >> $f
+		echo "export THIEF_HOME_PATH=$THIEF_HOME_PATH" >> $f
                 echo "alias $config_tool=$config_home_path/$current_file_name" >> $f
 #		echo "thief_status=\$(cat $THIEF_HOME_PATH/.thief_status)" >> $f
 #		echo ". $THIEF_HOME_PATH/.alias.sh $THIEF_HOME_PATH \$thief_status" >> $f 
@@ -107,6 +109,9 @@ if [ $has_set = 0 ]; then
     echo "you can try to run '$current_file_name' to add this environment variable to your bashrc file."
     exit 1
 fi
+
+# export common shell script
+. $THIEF_HOME_PATH/.utils.sh
 
 if [ "$1" == "on" ]; then
      echo "on" > $THIEF_HOME_PATH/.thief_status
