@@ -1,3 +1,5 @@
 backup
 home/.alias.config.sh.bak
 home/.thief_status
+.swp
+home/.vim

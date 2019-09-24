@@ -1,0 +1,29 @@
+" ==========================================
+
+
+" bundle 插件管理和配置项
+" ==========================================
+" 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
+set nocompatible
+filetype off " required! turn off
+
+" ################### 插件管理 ###################
+" Plug 管理
+if empty(glob('$THIEF_HOME_PATH/.vim/autoload/plug.vim'))
+  silent !curl -fLo $THIEF_HOME_PATH/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" plugin management
+call plug#begin('$THIEF_HOME_PATH/.vim/plugged')
+
+"Plug 'unblevable/quick-scope'  " 行内快速移动
+Plug 'easymotion/vim-easymotion' " 屏幕快速移动
+Plug 'octol/vim-cpp-enhanced-highlight' "cpp hightlight
+Plug 'nathanaelkane/vim-indent-guides' "indent guide, 嵌套{}显示indient line.
+Plug 'altercation/vim-colors-solarized' " solarized theme
+Plug 'ctrlpvim/ctrlp.vim' " fast open file 
+
+call plug#end()
+
