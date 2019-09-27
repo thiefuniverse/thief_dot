@@ -68,7 +68,7 @@ set softtabstop=4
 
 " set background
 "set t_Co=256
-"set background=dark
+set background=dark
 "let g:solarized_termcolors=256
 colorscheme solarized
 
@@ -76,6 +76,31 @@ colorscheme solarized
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
+" file explorer
+" ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+" open a NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+" open a NERDTree automatically when vim starts up on no files
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" some shortcut
+map <C-n> :NERDTreeToggle<CR>
+
+" close vim if only window which is NERDTree left open.
+ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" nerdtree win default size
+let NERDTreeWinSize=15
+let NERDTreeShowHidden=1
+
+" config nerdtree edge color
+highlight VertSplit ctermbg=NONE
+highlight VertSplit ctermfg=NONE
+
+" ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
 " indent guide
 "let g:indent_guides_enable_on_vim_startup=1

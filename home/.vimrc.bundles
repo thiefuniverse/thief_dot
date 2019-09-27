@@ -27,6 +27,7 @@ Plug 'octol/vim-cpp-enhanced-highlight' "cpp hightlight
 Plug 'nathanaelkane/vim-indent-guides' "indent guide, 嵌套{}显示indient line.
 Plug 'altercation/vim-colors-solarized' " solarized theme
 Plug 'ctrlpvim/ctrlp.vim' " fast open file 
+Plug 'scrooloose/nerdtree' " file explorer
 
 call plug#end()
 
