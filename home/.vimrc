@@ -4,8 +4,8 @@ syntax on
 
 :set number
 
-let mapleader = ","
-let g:mapleader = ","
+let mapleader = " " 
+let g:mapleader = " " 
 
 "set bundles"
 " use THIEF_HOME_PATH to config your vimrc.bundle path.
@@ -73,32 +73,32 @@ set background=dark
 colorscheme solarized
 
 " 快速open file
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+"let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " file explorer
 " ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 " open a NERDTree automatically when vim starts up on opening a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
-" open a NERDTree automatically when vim starts up on no files
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" open a NERDTree automatically when vim starts up on no file
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " some shortcut
-map <C-n> :NERDTreeToggle<CR>
+"map <C-n> :NERDTreeToggle<CR>
 
 " close vim if only window which is NERDTree left open.
- autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " nerdtree win default size
-let NERDTreeWinSize=15
-let NERDTreeShowHidden=1
+"let NERDTreeWinSize=15
+"let NERDTreeShowHidden=1
 
 " config nerdtree edge color
-highlight VertSplit ctermbg=NONE
-highlight VertSplit ctermfg=NONE
+"highlight VertSplit ctermbg=NONE
+"highlight VertSplit ctermfg=NONE
 
 " ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -115,6 +115,80 @@ highlight VertSplit ctermfg=NONE
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=black ctermbg=3
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=4
 
+
+" 自动索引,自动增量更新
+" vim-gutentags {{{
+" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
+"set tags+=/Users/Shared/Epic\ Games/UE_4.23/Engine/tags
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+set tags=./.tags;,.tags
+set tags=tags;,/Users/Shared/Epic_Games/UE_4.23/Engine/tags
+
+" 同时开启 ctags, gtags
+let g:gutentags_modules = []
+if executable('ctags')
+	let g:gutentags_modules += ['ctags']
+endif
+if executable('gtags-cscope') && executable('gtags')
+	let g:gutentags_modules += ['gtags_cscope']
+endif
+
+" 所生成的数据文件的名称
+let g:gutentags_ctags_tagfile = '.tags'
+
+" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
+let s:vim_tags = expand('~/.cache/tags')
+let g:gutentags_cache_dir = s:vim_tags
+
+" 配置 ctags 的参数
+let g:gutentags_ctags_extra_args = ['--fields=+lniazS', '--extra=+q+f -R']
+let g:gutentags_ctags_extra_args += ['--c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+
+" 如果使用 universal ctags 需要增加下面一行
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
+" " 禁用 gutentags 自动加载 gtags 数据库的行为
+let g:gutentags_auto_add_gtags_cscope = 0
+
+" 检测 ~/.cache/tags 不存在就新建
+if !isdirectory(s:vim_tags)
+   silent! call mkdir(s:vim_tags, 'p')
+endif
+" }}}
+
+" leaderF
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_DefaultMode = 'NameOnly'
+noremap <Leader>fm :LeaderfFunction<cr>
+noremap <Leader>fb :LeaderfBuffer<cr>
+noremap <Leader>ft :LeaderfTag<cr>
+noremap <Leader>fr :LeaderfMru<cr>
+noremap <Leader>fl :LeaderfLine<cr>
+noremap <Leader>ff :LeaderfFile<cr>
+ 
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+ 
+let g:Lf_NormalMap = {
+    \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+    \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+    \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+    \ }
+" preview 
+noremap <Leader>pt :PreviewTag<cr>
+noremap <Leader>pk :PreviewScroll -1<cr>
+noremap <Leader>pc :PreviewClose<cr>
+noremap <Leader>pj :PreviewScroll +1<cr>
 
 set shortmess=atI
 set noswapfile
