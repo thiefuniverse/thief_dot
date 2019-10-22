@@ -1,6 +1,8 @@
 #!/bin/bash
 
+# please transfer your home path as first argument
 THIEF_HOME_PATH=$1
+
 # import remove_alias, apply_alias function
 . $THIEF_HOME_PATH/alias/alias.utils.sh
 

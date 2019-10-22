@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# some functions for alias
 apply_alias() {
     alias_file=$1
     if [ ! -f "$alias_file" ]; then

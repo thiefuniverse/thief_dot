@@ -25,7 +25,7 @@ clean_file_between_flags() {
 # BBB end flag
 
 
-# if we invoke this function: `clean_file_between_flags test.txt AAA BBB`,
+# if we invoke this function: `clean_file_between_flags ./test.txt AAA BBB`,
 # you will get this content now:
 # 1. cmd 1
 # 2. cmd 2
