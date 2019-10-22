@@ -9,9 +9,9 @@ let g:mapleader = " "
 
 "set bundles"
 " use THIEF_HOME_PATH to config your vimrc.bundle path.
-let bundle_path= $THIEF_HOME_PATH . "/.vimrc.bundles"
+let bundle_path= $THIEF_HOME_PATH . "/vim_config/vimrc.bundles"
 if filereadable(bundle_path)
-    source $THIEF_HOME_PATH/.vimrc.bundles
+    source $THIEF_HOME_PATH/vim_config/vimrc.bundles
 endif
 
 " install missing plugins on startup by Plug

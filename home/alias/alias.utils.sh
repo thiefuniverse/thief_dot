@@ -33,22 +33,3 @@ remove_alias() {
     fi
 }
 
-
-THIEF_HOME_PATH=$1
-export thief_status=$(cat $THIEF_HOME_PATH/.thief_status)
-echo "current status: $thief_status"
-alias_config_file=$THIEF_HOME_PATH/.alias.config
-alias_config_file_bak=$THIEF_HOME_PATH/.alias.config.sh.bak
-
-# replace some variable name in .alias.config file
-sed  "s|\$THIEF_HOME_PATH|$THIEF_HOME_PATH|g"  ${alias_config_file} >  ${alias_config_file_bak}
-if [ "$thief_status" = "on" ]; then
-    apply_alias ${alias_config_file_bak}
-    echo "apply alias done."
-else
-    remove_alias ${alias_config_file_bak}
-    echo "remove alias done."
-fi
-
-
-

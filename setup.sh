@@ -1,9 +1,13 @@
 #!/bin/bash
 
+current_file_name=$(basename "$0")
+current_path=$(pwd)
+config_home_path=$current_path
+
 # ******config area******
 
 # you can config your self command name
-config_tool=ts
+config_tool=${current_file_name}
 
 # if you don't use bash or zsh, please add it by yourself.
 # add to .bash_profile for mac
@@ -19,10 +23,6 @@ config_end_line="#******thief plan settings end******"
 config_end_flag="thief plan settings end"
 # ******config area******
 
-
-current_file_name=$(basename "$0")
-current_path=$(pwd)
-config_home_path=$current_path
 
 introduction(){
     echo "Introduction: Thief Plan"
@@ -55,7 +55,7 @@ if [ "$1" == "set" ] || [ "$1" == "force_set" ]; then
     THIEF_HOME_PATH=$config_home_path/home
 
     # export common shell script
-    . $THIEF_HOME_PATH/.utils.sh
+    . $THIEF_HOME_PATH/utils/utils.sh
 
     for f in ${config_list[@]}; do
 	# judge alias exists or not.
@@ -78,7 +78,7 @@ if [ "$1" == "set" ] || [ "$1" == "force_set" ]; then
                 echo "alias $config_tool=$config_home_path/$current_file_name" >> $f
 #		echo "thief_status=\$(cat $THIEF_HOME_PATH/.thief_status)" >> $f
 #		echo ". $THIEF_HOME_PATH/.alias.sh $THIEF_HOME_PATH \$thief_status" >> $f 
-		echo ". $THIEF_HOME_PATH/.alias.sh $THIEF_HOME_PATH " >> $f 
+		echo ". $THIEF_HOME_PATH/alias/alias.sh $THIEF_HOME_PATH " >> $f 
 		echo "$config_end_line" >> $f
 	        echo "add alias $config_tool to $f"
             else
@@ -106,12 +106,12 @@ done
 
 if [ $has_set = 0 ]; then
     echo "you didn't set THIEF_HOME_PATH environment variable, please set it."
-    echo "you can try to run '$current_file_name' to add this environment variable to your bashrc file."
+    echo "you can try to run '$current_file_name -h ' to know how to add this environment variable to your bashrc file."
     exit 1
 fi
 
 # export common shell script
-. $THIEF_HOME_PATH/.utils.sh
+. $THIEF_HOME_PATH/utils/utils.sh
 
 if [ "$1" == "on" ]; then
      echo "on" > $THIEF_HOME_PATH/.thief_status
