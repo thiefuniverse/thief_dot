@@ -14,6 +14,7 @@ alias_config_template=$THIEF_HOME_PATH/alias/alias.config
 alias_config_file_real=$THIEF_HOME_PATH/alias/alias.config.sh
 
 sed  "s|\$THIEF_HOME_PATH|$THIEF_HOME_PATH|g"  ${alias_config_template} >  ${alias_config_file_real}
+echo "" >> ${alias_config_file_real}
 if [ "$thief_status" = "on" ]; then
     apply_alias ${alias_config_file_real}
 else

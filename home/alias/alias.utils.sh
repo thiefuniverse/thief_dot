@@ -8,12 +8,17 @@ apply_alias() {
     else
 	while read l
 	do
-	    alias_name=$(echo $l | cut -d'=' -f1)
-	    command=$(echo $l | cut -d'=' -f2)
+		# remove spaces
+		remove_lead_space=$(sed 's/^[[:space:]]*//' <<< $l)
+		if [[ ! "$remove_lead_space" == "#*" ]] ; then
+	    	alias_name=$(echo $remove_lead_space | cut -d'=' -f1)
+	    	command=$(echo $remove_lead_space | cut -d'=' -f2)
 
+			# apply alias
             if [ "$alias_name" != "" ]; then
-	        alias $alias_name=$command 
-	    fi
+	        	alias $alias_name="$command"
+	    	fi
+		fi
 	done < $alias_file
     fi
 }

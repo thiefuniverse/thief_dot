@@ -8,6 +8,8 @@ config_home_path=$current_path
 
 # you can config your self command name
 config_tool=${current_file_name}
+# update and enable your .bashrc* file
+source_sh=sz
 
 # if you don't use bash or zsh, please add it by yourself.
 # add to .bash_profile for mac
