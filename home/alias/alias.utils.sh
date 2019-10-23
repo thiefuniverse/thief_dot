@@ -12,7 +12,7 @@ apply_alias() {
 		remove_lead_space=$(sed 's/^[[:space:]]*//' <<< $l)
 		if [[ ! "$remove_lead_space" == "#*" ]] ; then
 	    	alias_name=$(echo $remove_lead_space | cut -d'=' -f1)
-	    	command=$(echo $remove_lead_space | cut -d'=' -f2)
+	    	command=$(echo $remove_lead_space | sed  '1,/=/s/[^=]*=//' )
 
 			# apply alias
             if [ "$alias_name" != "" ]; then
@@ -31,7 +31,7 @@ remove_alias() {
 	while read l
 	do
 	    alias_name=$(echo $l | cut -d'=' -f1)
-	    command=$(echo $l | cut -d'=' -f2)
+	    command=$(echo $l | sed  '1,/=/s/[^=]*=//' )
 	    if [ "$alias_name" != "" ] && [ "$(alias | grep "^$alias_name=" -c)" != 0 ]; then 
                 unalias $alias_name
 	    fi
