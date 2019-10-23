@@ -1,0 +1,11 @@
+# 跳过hostkey check
+StrictHostKeyChecking no 
+
+# 对所有远程主机生效
+Host *
+# 对于上一个关闭了的session,重连时也不需要输入密码 
+ControlPersist yes
+
+# 对于已经有连接的主机，复用之前的session,不需要重新输入密码 
+ControlMaster auto
+ControlPath ~/.ssh/master-%r@%h:%p
