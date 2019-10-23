@@ -1,0 +1,9 @@
+* Thief Plan
+
+This repo will grow up with me. It will be a collection of powerful tools, config, triks, snippets or scripts and keep clean.
+
+** current content
+*** vim config
+*** system alias
+*** ssh config
+*** emake: a simple and easy tool for building and compileing projects which's not so large.
