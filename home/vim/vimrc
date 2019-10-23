@@ -80,25 +80,25 @@ colorscheme solarized
 " file explorer
 " ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 " open a NERDTree automatically when vim starts up on opening a directory
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+ autocmd StdinReadPre * let s:std_in=1
+ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 
 " open a NERDTree automatically when vim starts up on no file
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " some shortcut
-"map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 
 " close vim if only window which is NERDTree left open.
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " nerdtree win default size
-"let NERDTreeWinSize=15
-"let NERDTreeShowHidden=1
+let NERDTreeWinSize=15
+let NERDTreeShowHidden=1
 
 " config nerdtree edge color
-"highlight VertSplit ctermbg=NONE
-"highlight VertSplit ctermfg=NONE
+highlight VertSplit ctermbg=NONE
+highlight VertSplit ctermfg=NONE
 
 " ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -115,6 +115,11 @@ colorscheme solarized
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=black ctermbg=3
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=darkgrey ctermbg=4
 
+" 让配置变更立即生效
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
+set wildmenu						" 命令行补全以增强模式运行
+set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
+set wildmode=longest,list           " 文件名补全类似tab补全
 
 " 自动索引,自动增量更新
 " vim-gutentags {{{
@@ -155,6 +160,25 @@ if !isdirectory(s:vim_tags)
    silent! call mkdir(s:vim_tags, 'p')
 endif
 " }}}
+
+" Register ccls C++ lanuage server.
+if executable('ccls')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'ccls',
+      \ 'cmd': {server_info->['ccls']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }, "clang": {"resourceDir": "/usr/local/clang/8.0.0"}},
+      \ 'whitelist': ['c', 'cpp', 'cc'],
+      \ })
+endif
+
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
+let g:lsp_diagnostics_enabled = 0
+let g:lsp_highlights_enabled = 0
+let g:lsp_textprop_enabled = 0
+" for asyncomplete.vim log
+let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
 " leaderF
 let g:Lf_ShortcutF = '<c-p>'
