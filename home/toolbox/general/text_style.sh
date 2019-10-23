@@ -29,7 +29,7 @@ text_style_help(){
 
     echo "$(yellow_t current avaiable functions:)"
     echo "[blue_t, yellow_t, green_t, red_t, line_t, bold_t]"
-    echo "you use: echo \$(\$blue_t help)"
+    echo "you use: echo \$(blue_t help)"
     echo "you will get: ""$(blue_t help)"
 }
 
