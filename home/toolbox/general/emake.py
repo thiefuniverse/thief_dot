@@ -2194,6 +2194,10 @@ class iparser (object):
 				retval = -1
 				break
 		os.chdir(savedir)
+                # 添加单个源文件时默认的中间文件生成目录,设置目录名称为为同目录下的 "objs/原文件名"
+                if not self.int:
+                        self.int = os.path.split(self.makefile)[0] + "/objs/" + os.path.split(self.makefile)[1]
+
 		self.push_src(self.makefile, '')
 		return retval
 
