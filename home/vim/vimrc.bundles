@@ -26,10 +26,9 @@ Plug 'easymotion/vim-easymotion' " 屏幕快速移动
 Plug 'octol/vim-cpp-enhanced-highlight' "cpp hightlight
 Plug 'nathanaelkane/vim-indent-guides' "indent guide, 嵌套{}显示indient line.
 Plug 'altercation/vim-colors-solarized' " solarized theme
-"Plug 'ctrlpvim/ctrlp.vim' " fast open file 
+Plug 'ctrlpvim/ctrlp.vim' " fast open file 
 Plug 'scrooloose/nerdtree' " file explorer
 "Plug 'ludovicchabant/vim-gutentags' " ctags
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' } 
 "Plug 'skywind3000/gutentags_plus'
 Plug 'skywind3000/vim-preview'
 Plug 'prabirshrestha/async.vim'

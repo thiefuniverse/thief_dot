@@ -73,9 +73,9 @@ set background=dark
 colorscheme solarized
 
 " 快速open file
-"let g:ctrlp_map = '<c-p>'
-"let g:ctrlp_cmd = 'CtrlP'
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " file explorer
 " ''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -181,33 +181,33 @@ let g:lsp_textprop_enabled = 0
 let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
 " leaderF
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_DefaultMode = 'NameOnly'
-noremap <Leader>fm :LeaderfFunction<cr>
-noremap <Leader>fb :LeaderfBuffer<cr>
-noremap <Leader>ft :LeaderfTag<cr>
-noremap <Leader>fr :LeaderfMru<cr>
-noremap <Leader>fl :LeaderfLine<cr>
-noremap <Leader>ff :LeaderfFile<cr>
+"let g:Lf_ShortcutF = '<c-p>'
+"let g:Lf_DefaultMode = 'NameOnly'
+"noremap <Leader>fm :LeaderfFunction<cr>
+"noremap <Leader>fb :LeaderfBuffer<cr>
+"noremap <Leader>ft :LeaderfTag<cr>
+"noremap <Leader>fr :LeaderfMru<cr>
+"noremap <Leader>fl :LeaderfLine<cr>
+"noremap <Leader>ff :LeaderfFile<cr>
  
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/cache')
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
- 
-let g:Lf_NormalMap = {
-    \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-    \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
-    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
-    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
-    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
-    \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
-    \ }
+"let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+"let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+"let g:Lf_WorkingDirectoryMode = 'Ac'
+"let g:Lf_WindowHeight = 0.30
+"let g:Lf_CacheDirectory = expand('~/.vim/cache')
+"let g:Lf_ShowRelativePath = 0
+"let g:Lf_HideHelp = 1
+"let g:Lf_StlColorscheme = 'powerline'
+"let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+" 
+"let g:Lf_NormalMap = {
+"    \ "File":   [["<ESC>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+"    \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+"    \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+"    \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+"    \ "Function":    [["<ESC>", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+"    \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+"    \ }
 " preview 
 noremap <Leader>pt :PreviewTag<cr>
 noremap <Leader>pk :PreviewScroll -1<cr>
@@ -230,6 +230,13 @@ set ruler            " 右下角显示光标的位置
 
 set whichwrap+=<,>,h,l "   退格和方向键可以换行
 set showcmd
+
+" 自动切换到目标文件所在的目录
+if exists('+autochdir')
+    set autochdir
+else
+    autocmd BufEnter * silent! lcd %:p:h:gs/ /\\ /
+endif
 
 " 状态栏配置
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
