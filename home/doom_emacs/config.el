@@ -34,5 +34,46 @@
 
 
 ;;; *********************************************************
-;;; * multiple edit *
+;;; * config treemacs *
 ;;; *********************************************************
+(use-package! treemacs
+  :config
+  :bind
+  ;;; single click to open file
+  (([mouse-1] . treemacs-single-click-expand-action)))
+
+;;; *********************************************************
+;;; * add some shortkey for treemacs *
+;;; *********************************************************
+(map! :map evil-treemacs-state-map "f" #'counsel-find-file) ;; find or create file
+(map! :map evil-treemacs-state-map "+" #'make-directory)    ;; make directory
+(map! :map treemacs-mode-map "ov" #'treemacs-visit-node-horizontal-split)
+(map! :map treemacs-mode-map "os" #'treemacs-visit-node-vertical-split)
+
+;;(setq +workspaces-switch-project-function #'treemacs-projectile)
+;;(use-package treemacs
+;;  :config
+;;  (progn
+;;    (defun vs//treemacs-add-project (&optional path)
+;;      "Add project from `PATH' to `treemacs'."
+;;      (let* ((path (or path vs-user-home-dir))
+;;             (name (file-name-nondirectory
+;;                    (directory-file-name (if (file-remote-p path)
+;;                                             (car (last (split-string path ":")))
+;;                                           path)))))
+;;        (unless (treemacs-current-workspace)
+;;          (treemacs--find-workspace))
+;;        (treemacs-do-add-project-to-workspace path name)))))
+;;
+;;(use-package treemacs-projectile
+;;  :after (projectile treemacs)
+;;  :bind (:map global-map ([C-tab] . vs/treemacs-open))
+;;  :config
+;;  (progn
+;;    (defun vs/treemacs-open ()
+;;      "Setup project for current file and open `treemacs' buffer."
+;;      (interactive)
+;;      (vs//treemacs-add-project (condition-case _
+;;                                    (expand-file-name (projectile-project-root))
+;;                                  (error (expand-file-name default-directory))))
+;;      (treemacs-select-window))))
