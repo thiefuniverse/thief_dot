@@ -172,13 +172,13 @@ if executable('ccls')
       \ })
 endif
 
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
+"let g:lsp_log_verbose = 1
+"let g:lsp_log_file = expand('~/vim-lsp.log')
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_highlights_enabled = 0
 let g:lsp_textprop_enabled = 0
 " for asyncomplete.vim log
-let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+"let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
 " leaderF
 "let g:Lf_ShortcutF = '<c-p>'
