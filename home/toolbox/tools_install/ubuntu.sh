@@ -27,7 +27,7 @@ $incc sudo
 
 # zsh
 # zsh : a wonderful command line interpreter
-$incc zsh openssh-server
+$incc zsh openssh-server sshpass
 
 # sudo /etc/init.d/ssh start
 
