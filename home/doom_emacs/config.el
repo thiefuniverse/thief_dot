@@ -21,7 +21,7 @@
 (require 'init-reload)
 
 ;;; use one specific input method
-(require 'init-input-method)
+;;;(require 'init-input-method)
 
 
 ;;; *********************************************************
