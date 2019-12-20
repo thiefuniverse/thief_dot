@@ -21,7 +21,7 @@
 (require 'init-reload)
 
 ;;; use one specific input method
-;;;(require 'init-input-method)
+(require 'init-input-method)
 
 
 ;;; *********************************************************
@@ -50,13 +50,36 @@
 (map! :map treemacs-mode-map "ov" #'treemacs-visit-node-horizontal-split)
 (map! :map treemacs-mode-map "os" #'treemacs-visit-node-vertical-split)
 
-;;; *********************************************************
-;;; * set font *
-;;; *********************************************************
-(setq doom-font (font-spec :family "Source Code Pro" :size 15))
-
 
 ;;; *********************************************************
-;;; * no quit message *
+;;; * flycheck for c++ *
 ;;; *********************************************************
-(setq confirm-kill-emacs nil)
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+
+;;(setq +workspaces-switch-project-function #'treemacs-projectile)
+;;(use-package treemacs
+;;  :config
+;;  (progn
+;;    (defun vs//treemacs-add-project (&optional path)
+;;      "Add project from `PATH' to `treemacs'."
+;;      (let* ((path (or path vs-user-home-dir))
+;;             (name (file-name-nondirectory
+;;                    (directory-file-name (if (file-remote-p path)
+;;                                             (car (last (split-string path ":")))
+;;                                           path)))))
+;;        (unless (treemacs-current-workspace)
+;;          (treemacs--find-workspace))
+;;        (treemacs-do-add-project-to-workspace path name)))))
+;;
+;;(use-package treemacs-projectile
+;;  :after (projectile treemacs)
+;;  :bind (:map global-map ([C-tab] . vs/treemacs-open))
+;;  :config
+;;  (progn
+;;    (defun vs/treemacs-open ()
+;;      "Setup project for current file and open `treemacs' buffer."
+;;      (interactive)
+;;      (vs//treemacs-add-project (condition-case _
+;;                                    (expand-file-name (projectile-project-root))
+;;                                  (error (expand-file-name default-directory))))
+;;      (treemacs-select-window))))
