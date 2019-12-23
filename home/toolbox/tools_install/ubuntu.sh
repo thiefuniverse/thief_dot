@@ -47,4 +47,8 @@ git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom install
 
 
-$incc tmux terminator clang-format
+$incc tmux clang-format
+
+# install hyper terminal and set it as default terminal
+sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /opt/Hyper/hyper 60
+sudo update-alternatives --config x-terminal-emulator 
