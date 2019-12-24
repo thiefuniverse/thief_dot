@@ -59,7 +59,7 @@ module.exports = {
 
     // if you're using a Linux setup which show native menus, set to false
     // default: `true` on Linux, `true` on Windows, ignored on macOS
-    showHamburgerMenu: false,
+    showHamburgerMenu: true,
 
     // set to `false` (without backticks and without quotes) if you want to hide the minimize, maximize and close buttons
     // additionally, set to `'left'` if you want them on the left, like in Ubuntu
@@ -147,21 +147,22 @@ module.exports = {
   //   `@company/project`
   //   `project#1.0.1`
   plugins: [
-        "hyper-solarized-dark",
-        "hyperminimal",
-        "hypercwd",
-	],
+    "hyper-solarized-dark",
+    "hyperlinks",
+    "hyper-search",
+    "hypercwd",
+    "hyper-tabs-enhanced",
+    "hyper-pane"
+  ],
 
+  hyperTabs: {
+    border: true,
+    tabIconsColored: true,
+  },
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
   // to load it and avoid it being `npm install`ed
   localPlugins: [],
-  hyperline: {
-    plugins: [
-      "ip",
-      "cpu",
-    ]
-  },
   keymaps: {
     // Example
     // 'window:devtools': 'cmd+alt+o',
