@@ -136,7 +136,7 @@
         ;+pomodoro        ; be fruitful with the tomato technique
         +present)        ; using org-mode for presentations
        ;;perl              ; write code no one else can comprehend
-       ;;php               ; perl's insecure younger brother
+       php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
        ;;python            ; beautiful is better than ugly
@@ -151,7 +151,7 @@
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       ;;web               ; the tubes
+       web               ; the tubes
 
        :email
        ;;(mu4e +gmail)       ; WIP
@@ -191,4 +191,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(auto-save-interval 5))
+ '(auto-save-interval 2)
+ '(company-c-headers-path-system
+   (quote
+    ("/usr/local/Cellar/llvm/4.0.0_1/include/c++/v1" "/usr/include/" "/usr/local/include/" "/Users/Shared/Epic_Games/UE_4.23/Engine/Source/Runtime/Engine/Classes/"))))

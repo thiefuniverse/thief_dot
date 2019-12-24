@@ -32,6 +32,10 @@
 (map! :leader :desc "jump to line" "j l" #'avy-goto-line)
 (map! :leader :desc "jump to screen" "j s" #'ace-window)
 
+(defun jump-hyper-terminal ()
+  (interactive)
+  (shell-command "hyper"))
+(map! :leader :desc "jump to hyper terminal" "C-j" 'jump-hyper-terminal)
 
 ;;; *********************************************************
 ;;; * config treemacs *
@@ -42,6 +46,7 @@
   ;;; single click to open file
   (([mouse-1] . treemacs-single-click-expand-action)))
 
+
 ;;; *********************************************************
 ;;; * add some shortkey for treemacs *
 ;;; *********************************************************
@@ -50,11 +55,85 @@
 (map! :map treemacs-mode-map "ov" #'treemacs-visit-node-horizontal-split)
 (map! :map treemacs-mode-map "os" #'treemacs-visit-node-vertical-split)
 
+;;; *********************************************************
+;;; * save file automatically *
+;;; *********************************************************
+(use-package! super-save
+  :config
+  (super-save-mode +1)
+  (setq super-save-auto-save-when-idle t)
+  (setq super-save-remote-files nil)
+  (add-to-list 'super-save-triggers 'evil-force-normal-state)
+  (add-to-list 'super-save-hook-triggers 'find-file-hook)
+  (add-to-list 'super-save-hook-triggers 'evil-insert-state-exit-hook)
+  (setq auto-save-default nil))
+
+;;; save file after exiting insert state
+;;;(add-hook 'evil-insert-state-exit-hook
+;;;          (lambda ()
+;;;            (call-interactively #'save-buffer)))
 
 ;;; *********************************************************
 ;;; * flycheck for c++ *
 ;;; *********************************************************
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+
+(use-package! google-c-style
+  :config
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+ )
+
+;;; *********************************************************
+;;; * company headers for c,c++ *
+;;; *********************************************************
+
+;;;------------------------------------------------------------
+;;; config company complete by tab or backtab
+;;;------------------------------------------------------------
+
+;;(defun company-complete-common-or-previous-cycle ()
+;;  "Insert the common part of all candidates, or select the next one."
+;;  (interactive)
+;;  (when (company-manual-begin)
+;;    (let ((tick (buffer-chars-modified-tick)))
+;;      (call-interactively 'company-complete-common)
+;;      (when (eq tick (buffer-chars-modified-tick))
+;;        (let ((company-selection-wrap-around t))
+;;          (call-interactively 'company-select-previous))))))
+
+;;;(setq company-backends nil)
+;;;(add-to-list 'company-backends 'company-yasnippet)
+;;;(add-to-list 'company-backends 'company-c-headers)
+;;;(defun add-hook-to-cplusplus (func-name)
+;;;  "add hook function to c mode and c++ mode"
+;;;  (add-hook 'c-mode-hook func-name)
+;;;  (add-hook 'c++-mode-hook func-name)
+;;;  )
+
+;;;(use-package! company
+;;;  :config
+;;;  (add-hook-to-cplusplus 'company-mode)
+;;;  )
+ (add-hook 'c++-mode-hook
+            (lambda ()
+              (set (make-local-variable 'company-backends)
+                   '((company-capf company-c-headers company-dabbrev-code company-yasnippet)))))
+ (add-hook 'c-mode-hook
+            (lambda ()
+              (set (make-local-variable 'company-backends)
+                   '((company-capf company-c-headers company-dabbrev-code company-yasnippet)))))
+
+;;; switch between header file and cpp file
+(map! :leader :desc "switch bewteen header and implementation file" "p s" #'ff-find-other-file)
+
+;;; *********************************************************
+;;; * config for functions args, for c++ completion *
+;;; *********************************************************
+;;  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
+;;  (define-key company-active-map (kbd "<backtab>") 'company-complete-common-or-previous-cycle))
+
+(setq company-idle-delay 0.5)
 
 ;;(setq +workspaces-switch-project-function #'treemacs-projectile)
 ;;(use-package treemacs
