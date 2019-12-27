@@ -194,4 +194,5 @@
  '(auto-save-interval 2)
  '(company-c-headers-path-system
    (quote
-    ("/usr/local/Cellar/llvm/4.0.0_1/include/c++/v1" "/usr/include/" "/usr/local/include/" "/Users/Shared/Epic_Games/UE_4.23/Engine/Source/Runtime/Engine/Classes/"))))
+    ("/usr/local/Cellar/llvm/4.0.0_1/include/c++/v1" "/usr/include/" "/usr/local/include/" "/Users/Shared/Epic_Games/UE_4.23/Engine/Source/Runtime/Engine/Classes/")))
+ '(safe-local-variable-values (quote ((eval c-set-offset (quote innamespace) 0)))))
