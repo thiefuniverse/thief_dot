@@ -70,7 +70,7 @@ set softtabstop=4
 "set t_Co=256
 set background=dark
 "let g:solarized_termcolors=256
-colorscheme solarized
+"colorscheme solarized
 
 " 快速open file
 let g:ctrlp_map = '<c-p>'

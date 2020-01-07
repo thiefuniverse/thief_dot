@@ -3,26 +3,14 @@
 # please transfer your home path as first argument
 THIEF_HOME_PATH=$1
 
-# import remove_alias, apply_alias function
-. $THIEF_HOME_PATH/alias/alias.utils.sh
-
 # get current status of manager
 export thief_status=$(cat $THIEF_HOME_PATH/.thief_status)
 
 # here we know we should change alias by modifying alias/alias.config
-alias_config_template=$THIEF_HOME_PATH/alias/alias.config
-alias_config_file_real=$THIEF_HOME_PATH/alias/alias.config.sh
+alias_config_file=$THIEF_HOME_PATH/alias/alias.config.sh
 
-sed  "s|\$THIEF_HOME_PATH|$THIEF_HOME_PATH|g"  ${alias_config_template} >  ${alias_config_file_real}
-echo "" >> ${alias_config_file_real}
 if [ "$thief_status" = "on" ]; then
-    apply_alias ${alias_config_file_real}
+    . ${alias_config_file} $THIEF_HOME_PATH 1
 else
-    remove_alias ${alias_config_file_real}
+    . ${alias_config_file} $THIEF_HOME_PATH 0
 fi
-
-# remove generated intermidiate file
-rm -rf ${alias_config_file_real}
-
-
-
