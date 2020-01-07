@@ -14,3 +14,4 @@
 (package! super-save)
 (package! company-c-headers)
 (package! function-args)
+(package! prettier-js)

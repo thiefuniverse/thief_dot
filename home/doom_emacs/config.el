@@ -118,11 +118,11 @@
  (add-hook 'c++-mode-hook
             (lambda ()
               (set (make-local-variable 'company-backends)
-                   '((company-capf company-c-headers company-dabbrev-code company-yasnippet)))))
+                   '((company-capf company-irony company-c-headers company-dabbrev-code company-yasnippet)))))
  (add-hook 'c-mode-hook
             (lambda ()
               (set (make-local-variable 'company-backends)
-                   '((company-capf company-c-headers company-dabbrev-code company-yasnippet)))))
+                   '((company-capf company-irony company-c-headers company-dabbrev-code company-yasnippet)))))
 
 ;;; switch between header file and cpp file
 (map! :leader :desc "switch bewteen header and implementation file" "p s" #'ff-find-other-file)
@@ -135,6 +135,10 @@
 
 (setq company-idle-delay 0.5)
 
+(add-hook 'js-mode-hook 'prettier-js-mode)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+(add-hook 'markdown-mode-hook 'prettier-js-mode)
 ;;(setq +workspaces-switch-project-function #'treemacs-projectile)
 ;;(use-package treemacs
 ;;  :config
