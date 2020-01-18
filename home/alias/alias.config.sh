@@ -19,6 +19,8 @@ function __ac() {
 __ac vim='vim -u $THIEF_HOME_PATH/vim/vimrc'
 __ac vimrc='vim -u $THIEF_HOME_PATH/vim/vimrc $THIEF_HOME_PATH/vim/vimrc'
 
+# config bd, fast script for go back to parent directory
+__ac b='. $THIEF_HOME_PATH/toolbox/general/bd -si'
 
 __ac ts=setup.sh
 __ac sz='source ~/.zshrc'
