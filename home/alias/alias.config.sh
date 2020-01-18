@@ -13,6 +13,8 @@ function __ac() {
     fi
 }
 
+# load some shell script
+. $THIEF_HOME_PATH/toolbox/general/h.sh
 # vim
 __ac vim='vim -u $THIEF_HOME_PATH/vim/vimrc'
 __ac vimrc='vim -u $THIEF_HOME_PATH/vim/vimrc $THIEF_HOME_PATH/vim/vimrc'
