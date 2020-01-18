@@ -58,3 +58,6 @@ sudo update-alternatives --config x-terminal-emulator
 
 # beyond grep
 $incc ack
+
+# how2: find answer in cli
+npm install how-2 -g
