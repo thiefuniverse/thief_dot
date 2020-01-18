@@ -15,3 +15,7 @@
 (package! company-c-headers)
 (package! function-args)
 (package! prettier-js)
+(package! clang-format)
+(package! clang-format+ :recipe
+  (:host github
+   :repo "SavchenkoValeriy/emacs-clang-format-plus"))

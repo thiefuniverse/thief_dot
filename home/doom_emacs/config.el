@@ -139,6 +139,7 @@
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
 (add-hook 'markdown-mode-hook 'prettier-js-mode)
+
 ;;(setq +workspaces-switch-project-function #'treemacs-projectile)
 ;;(use-package treemacs
 ;;  :config
@@ -166,3 +167,14 @@
 ;;                                    (expand-file-name (projectile-project-root))
 ;;                                  (error (expand-file-name default-directory))))
 ;;      (treemacs-select-window))))
+
+;;; *********************************************************
+;;; * config clang-format *
+;;; *********************************************************
+(add-hook 'c-mode-common-hook #'clang-format+-mode)
+(add-hook 'c++-mode-hook #'clang-format+-mode)
+(defun set-clang-format-style ()
+  (defvar-local clang-format-style nil)
+  (setq-local clang-format-style (concat (getenv "THIEF_HOME_PATH") "/.clang-format")))
+;;;(add-hook 'clang-format+-mode-hook #'set-clang-format-style)
+
