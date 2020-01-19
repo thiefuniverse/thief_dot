@@ -22,6 +22,14 @@ __ac vimrc='vim -u $THIEF_HOME_PATH/vim/vimrc $THIEF_HOME_PATH/vim/vimrc'
 # config bd, fast script for go back to parent directory
 __ac b='. $THIEF_HOME_PATH/toolbox/general/bd -si'
 
+# pass content to clipboard
+__ac c='$THIEF_HOME_PATH/toolbox/general/c'
+# copy current path to clipboard
+__ac pd='c pwd'
+
+# open file explorer with file selected.
+__ac o='$THIEF_HOME_PATH/toolbox/general/xpf'
+
 __ac ts=setup.sh
 __ac sz='source ~/.zshrc'
 __ac sbp='source ~/.bash_profile'
