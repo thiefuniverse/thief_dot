@@ -61,3 +61,6 @@ $incc ack
 
 # how2: find answer in cli
 npm install how-2 -g
+
+# directory compare tool
+$incc meld

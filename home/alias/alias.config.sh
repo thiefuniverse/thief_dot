@@ -78,6 +78,7 @@ __ac gg='cd $(git rev-parse --show-toplevel)'
 __ac gd='git diff'
 __ac gca='git commit --amend'
 __ac gl='git pull'
+__ac gb='git blame'
 __ac t='tig'
 
 # emacs
@@ -88,3 +89,6 @@ __ac dof='~/.emacs.d/bin/doom refresh'
 
 # file statics
 __ac size_here=ncdu
+
+#compare directory
+__ac diffdir='meld'
