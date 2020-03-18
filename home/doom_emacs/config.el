@@ -178,3 +178,51 @@
   (setq-local clang-format-style (concat (getenv "THIEF_HOME_PATH") "/.clang-format")))
 ;;;(add-hook 'clang-format+-mode-hook #'set-clang-format-style)
 
+
+
+;;; *********************************************************
+;;; * config blog *
+;;; *********************************************************
+
+;;; modify default template
+(setq org2blog/wp-buffer-template
+      (format
+       "#+ORG2BLOG:
+#+DATE: %s
+#+OPTIONS: toc:4 num:nil todo:nil pri:nil tags:nil ^:nil
+#+CATEGORY:
+#+TAGS:
+#+DESCRIPTION:
+#+TITLE: "
+       (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))))
+
+(defun org2blog/insert-template ()
+  "insert blog template."
+  (interactive)
+  (insert
+   (funcall org2blog/wp-buffer-format-function
+            org2blog/wp-buffer-template)))
+
+(use-package! org2blog
+  :config
+  (require 'auth-source)
+  (add-to-list 'auth-sources "~/.netrc")
+  (let* ((credentials (auth-source-user-and-password "fly"))
+         (username (nth 0 credentials))
+         (password (nth 1 credentials))
+         (config `("my-blog"
+                   :url "https://thiefuniverse.com/xmlrpc.php"
+                   :username ,username
+                   :password ,password)))
+    (setq org2blog/wp-blog-alist (list config)))
+;;;  (setq org2blog/wp-track-posts (list ".org2blog.org" "posts"))
+;;;  (add-hook 'org2blog/wp-after-new-post-or-page-functions (lambda (p) ()))
+  (map! :leader :desc "org2blog" "o i" #'org2blog/insert-template)
+  (map! :leader :desc "org2blog" "o o" #'org2blog-user-interface))
+
+;;; *********************************************************
+;;; * config org mode truncate line *
+;;; *********************************************************
+(global-visual-line-mode 0)
+(add-hook 'org-mode-hook
+	  (lambda () (setq truncate-lines nil)))

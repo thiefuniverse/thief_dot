@@ -19,3 +19,4 @@
 (package! clang-format+ :recipe
   (:host github
    :repo "SavchenkoValeriy/emacs-clang-format-plus"))
+(package! org2blog)

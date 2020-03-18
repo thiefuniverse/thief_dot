@@ -119,3 +119,9 @@ Standard:       Cpp11
 TabWidth:       4
 # 使用tab字符: Never, ForIndentation, ForContinuationAndIndentation, Always
 UseTab: Never
+# include files
+IncludeCategories:
+  - Regex:           '.*.generated.h'
+    Priority:       99999 
+  - Regex:           '<.*>'
+    Priority:       1

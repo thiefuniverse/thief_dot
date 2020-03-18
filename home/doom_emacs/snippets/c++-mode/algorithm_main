@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: algorithm_main
+# uuid: algorithm_main
+# key: algomain
+# condition: t
+# --
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
+
+int main() {
+    $0
+    return 0;
+}

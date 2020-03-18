@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: using_std
+# uuid: using_std
+# key: ud
+# condition: t
+# --
+using namespace std;
