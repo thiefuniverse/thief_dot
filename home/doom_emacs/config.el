@@ -225,4 +225,6 @@
 ;;; *********************************************************
 (global-visual-line-mode 0)
 (add-hook 'org-mode-hook
-	  (lambda () (setq truncate-lines nil)))
+          (lambda ()
+            (setq word-wrap nil)
+            (setq truncate-lines nil)))
