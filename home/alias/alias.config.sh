@@ -92,3 +92,6 @@ __ac size_here=ncdu
 
 #compare directory
 __ac diffdir='meld'
+
+# find executable files
+__ac findexe="$THIEF_HOME_PATH/toolbox/general/findexe"
