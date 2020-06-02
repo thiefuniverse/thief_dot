@@ -56,6 +56,7 @@ __ac si='sudo apt-get install'
 __ac asl='adb shell'
 __ac lc='adb logcat -c;adb logcat | grep '
 __ac ads='adb root;adb remount;'
+__ac adbscreen="adb shell /system/bin/screencap -p /sdcard/screenshot.png"
 
 
 # git short cut
