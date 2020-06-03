@@ -227,4 +227,10 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (setq word-wrap nil)
-            (setq truncate-lines nil)))
+            (setq truncate-lines nil)
+            (turn-off-auto-fill)))
+
+;;; *********************************************************
+;;; *  config for emoji*
+;;; *********************************************************
+;;; (add-hook 'after-init-hook #'global-emojify-mode)

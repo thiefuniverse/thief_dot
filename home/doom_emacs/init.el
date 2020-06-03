@@ -195,4 +195,7 @@
  '(company-c-headers-path-system
    (quote
     ("/usr/local/Cellar/llvm/4.0.0_1/include/c++/v1" "/usr/include/" "/usr/local/include/" "/Users/Shared/Epic_Games/UE_4.23/Engine/Source/Runtime/Engine/Classes/")))
+ '(custom-safe-themes
+   (quote
+    ("2d1fe7c9007a5b76cea4395b0fc664d0c1cfd34bb4f1860300347cdad67fb2f9" "728eda145ad16686d4bbb8e50d540563573592013b10c3e2defc493f390f7d83" "0fe9f7a04e7a00ad99ecacc875c8ccb4153204e29d3e57e9669691e6ed8340ce" "fe76f3d5094967034192f6a505085db8db6deb0e135749d9a54dc488d6d3ee2f" default)))
  '(safe-local-variable-values (quote ((eval c-set-offset (quote innamespace) 0)))))
