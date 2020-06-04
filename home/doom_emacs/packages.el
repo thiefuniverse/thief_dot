@@ -6,10 +6,10 @@
 ;; (package! another-package :recipe (:host github :repo "username/repo"))
 ;; (package! builtin-package :disable t)
 
-(package! pyim)
-(package! pyim-greatdict :recipe 
-  (:host github 
-   :repo "tumashu/pyim-greatdict"))
+;;(package! pyim)
+;;(package! pyim-greatdict :recipe 
+;;  (:host github 
+;;   :repo "tumashu/pyim-greatdict"))
 
 (package! super-save)
 (package! company-c-headers)
@@ -21,3 +21,4 @@
    :repo "SavchenkoValeriy/emacs-clang-format-plus"))
 (package! org2blog)
 (package! emojify)
+(package! eglot)

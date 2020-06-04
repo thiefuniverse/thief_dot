@@ -3,6 +3,17 @@
 ;; Place your private configuration here
 
 ;;; *********************************************************
+;;; * config package source *
+;;; *********************************************************
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+
+;;; *********************************************************
+;;; * config gc threshold*
+;;; *********************************************************
+(setq doom-gc-cons-threshold (* 1024 1024 8))
+
+;;; *********************************************************
 ;;; * add some path to load path *
 ;;; *********************************************************
 (add-to-list 'load-path (concat (file-name-directory load-file-name)))
@@ -21,7 +32,7 @@
 (require 'init-reload)
 
 ;;; use one specific input method
-(require 'init-input-method)
+;;;(require 'init-input-method)
 
 
 ;;; *********************************************************
@@ -118,11 +129,11 @@
  (add-hook 'c++-mode-hook
             (lambda ()
               (set (make-local-variable 'company-backends)
-                   '((company-capf company-irony company-c-headers company-dabbrev-code company-yasnippet)))))
+                   '((company-capf company-c-headers company-dabbrev-code company-yasnippet)))))
  (add-hook 'c-mode-hook
             (lambda ()
               (set (make-local-variable 'company-backends)
-                   '((company-capf company-irony company-c-headers company-dabbrev-code company-yasnippet)))))
+                   '((company-capf company-c-headers company-dabbrev-code company-yasnippet)))))
 
 ;;; switch between header file and cpp file
 (map! :leader :desc "switch bewteen header and implementation file" "p s" #'ff-find-other-file)
@@ -234,3 +245,13 @@
 ;;; *  config for emoji*
 ;;; *********************************************************
 ;;; (add-hook 'after-init-hook #'global-emojify-mode)
+
+;;; *********************************************************
+;;; * config for eglot, a client for lsp server*
+;;; *********************************************************
+(use-package! eglot
+  :config
+  (require 'project)
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "/Users/xiefei/thief_space/configs/cool_tools/clangd/bin/clangd"))
+  (add-hook 'c-mode-hook 'eglot-ensure)
+  (add-hook 'c++-mode-hook 'eglot-ensure))
