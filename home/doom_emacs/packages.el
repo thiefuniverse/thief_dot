@@ -22,3 +22,5 @@
 (package! org2blog)
 (package! emojify)
 (package! eglot)
+(package! yasnippet :pin "d3d6d70b1cd4818d271752468e0fdb0788db750d")
+
