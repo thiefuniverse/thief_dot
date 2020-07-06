@@ -252,6 +252,16 @@
 (use-package! eglot
   :config
   (require 'project)
-  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "/Users/xiefei/thief_space/configs/cool_tools/clangd/bin/clangd"))
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "/home/sensetime/big_repo/high_soft/clangd_10.0.0/bin/clangd"))
   (add-hook 'c-mode-hook 'eglot-ensure)
-  (add-hook 'c++-mode-hook 'eglot-ensure))
+  (add-hook 'c++-mode-hook 'eglot-ensure)
+  (add-hook 'python-mode-hook 'eglot-ensure))
+
+;;; *********************************************************
+;;; * yapf format python code *
+;;; * need install yapf*
+;;; *********************************************************
+(use-package! py-yapf
+  :config
+  (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
+

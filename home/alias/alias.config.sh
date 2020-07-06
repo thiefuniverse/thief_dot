@@ -19,6 +19,8 @@ function __ac() {
 __ac vim='vim -u $THIEF_HOME_PATH/vim/vimrc'
 __ac vimrc='vim -u $THIEF_HOME_PATH/vim/vimrc $THIEF_HOME_PATH/vim/vimrc'
 
+# tmux
+__ac tmux='tmux -f $THIEF_HOME_PATH/config/tmux.conf'
 # config bd, fast script for go back to parent directory
 __ac b='. $THIEF_HOME_PATH/toolbox/general/bd -si'
 
@@ -95,4 +97,6 @@ __ac size_here=ncdu
 __ac diffdir='meld'
 
 # find executable files
-__ac findexe="$THIEF_HOME_PATH/toolbox/general/findexe"
+__ac findexe='$THIEF_HOME_PATH/toolbox/general/findexe'
+
+__ac cmakecommands='cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1 '

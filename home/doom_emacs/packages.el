@@ -24,3 +24,5 @@
 (package! eglot)
 (package! yasnippet :pin "d3d6d70b1cd4818d271752468e0fdb0788db750d")
 
+(package! py-yapf)
+(package! yaml-mode)
