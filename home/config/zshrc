@@ -1,0 +1,23 @@
+# Path to your oh-my-zsh installation.
+export ZSH="${HOME}/.oh-my-zsh"
+
+# theme
+ZSH_THEME="ys"
+
+DISABLE_AUTO_UPDATE="true"
+
+# plugins
+plugins=()
+
+source $ZSH/oh-my-zsh.sh
+
+# for jump directory
+eval "$(fasd --init auto)"
+
+# import local path variables
+if [ -f ${HOME}/.thief_path.sh ]; then
+    . ${HOME}/.thief_path.sh
+fi
+if [ -f ${THIEF_HOME_PATH}/alias/alias.sh ]; then
+    . ${THIEF_HOME_PATH}/alias/alias.sh
+fi

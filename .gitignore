@@ -2,4 +2,5 @@ backup
 home/.thief_status
 .swp
 home/vim/.vim
+.thief_path.sh
 
