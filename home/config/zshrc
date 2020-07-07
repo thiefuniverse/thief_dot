@@ -21,3 +21,20 @@ fi
 if [ -f ${THIEF_HOME_PATH}/alias/alias.sh ]; then
     . ${THIEF_HOME_PATH}/alias/alias.sh
 fi
+
+# only run when no HHKB
+# if this machine doesn't connect HHKB keyboard, we swap ctrl and caps.
+hhkb_result=$(lsusb 2>&1)
+if [[ ! "${hhkb_result}" =~ "unable" ]]; then
+	if [[ "$(echo ${hhkb_result} | grep HHKB )" == "" ]]; then
+       setxkbmap -layout us -option ctrl:nocaps
+   fi
+fi
+
+# only run at Ubuntu
+if [[ "$(uname -a | grep Ubuntu)" == "" ]]; then
+    # disable open a window when auto mount in ubuntu
+    gsettings set org.gnome.desktop.media-handling automount-open false 2> /dev/null
+fi
+
+
