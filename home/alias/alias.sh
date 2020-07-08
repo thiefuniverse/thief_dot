@@ -93,3 +93,7 @@ __ac diffdir='meld'
 
 # find executable files
 __ac findexe="$THIEF_HOME_PATH/toolbox/general/findexe"
+
+# tmux
+__ac tmux='tmux -f $THIEF_HOME_PATH/config/tmux.conf'
+
