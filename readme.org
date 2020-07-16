@@ -6,4 +6,4 @@ This repo will grow up with me. It will be a collection of powerful tools, confi
 *** vim config
 *** system alias
 *** ssh config
-*** emake: a simple and easy tool for building and compileing projects which's not so large.
+*** emake: a simple and easy tool for building and compileing projects which's are not so large.
