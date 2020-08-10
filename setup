@@ -1,5 +1,3 @@
-#!/bin/bash
-
 current_file_name=$(basename "$0")
 current_path=$(pwd)
 
@@ -47,8 +45,12 @@ if [ "$1" == "set" ]; then
 # builtin config\n\
 export THIEF_HOME_PATH=${current_path}/home\n\
 # control whether use thief alias or not.\n\
-export THIEF_ALIAS_ON=on  # on or off \
-
+export THIEF_ALIAS_ON=on  # on or off\n \
+# config for git ssh using socks proxy\n\
+export GIT_SSH_COMMAND='ssh -o ProxyCommand=\"connect -S 127.0.0.1:10808 %h %p\"'\n\
+# config for terminal use http proxy\n\
+export https_proxy=http://127.0.0.1:10809\n\
+export http_proxy=http://127.0.0.1:10809\n\
 " > ${env_script}
 
      echo "You start personal terminal environment, activate it by running 'source ~/.zshrc'"

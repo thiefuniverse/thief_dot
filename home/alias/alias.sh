@@ -82,7 +82,7 @@ __ac t='tig'
 # emacs
 __ac em='emacs'
 __ac ec=emacsclient
-__ac dof='~/.emacs.d/bin/doom refresh'
+__ac dos='~/.emacs.d/bin/doom sync'
 
 
 # file statics
