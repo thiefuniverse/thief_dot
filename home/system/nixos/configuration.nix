@@ -26,13 +26,13 @@
   networking.interfaces.enp4s0.useDHCP = true;
 
   # Configure network proxy if necessary
-  #networking.proxy.httpProxy = "http://127.0.0.1:10809";
-  #networking.proxy.httpsProxy = "http://127.0.0.1:10809";
-  #networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.proxy.httpProxy = "http://127.0.0.1:10809";
+  networking.proxy.httpsProxy = "http://127.0.0.1:10809";
+  networking.proxy.noProxy = "mirrors.tuna.tsinghua.edu.cn,cache.nixos.org,127.0.0.1,localhost,internal.domain";
 
   # set cache
-  #nix.binaryCaches = [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://cache.nixos.org" ];
-  nix.binaryCaches = [ "https://cache.nixos.org" ];
+  nix.binaryCaches = [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" "https://cache.nixos.org" ];
+  #nix.binaryCaches = [ "https://cache.nixos.org" ];
 
   # config zsh
  programs.zsh.enable = true;
@@ -54,7 +54,7 @@
   # config for grub options limit
   boot.loader.grub.configurationLimit = 4;
   # Set your time zone.
-  time.timeZone = "Asia/China";
+  time.timeZone = "Asia/Shanghai";
   
   nixpkgs.config.allowUnfree = true;
   # List packages installed in system profile. To search, run:
