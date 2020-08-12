@@ -97,3 +97,11 @@ __ac findexe="$THIEF_HOME_PATH/toolbox/general/findexe"
 # tmux
 __ac tmux='tmux -f $THIEF_HOME_PATH/config/tmux.conf'
 
+
+# for nixos
+is_nixos=$(uname -a | grep "nixos")
+if [ ! "$is_nixos" = "" ]; then
+    __ac rs="sudo nixos-rebuild switch "
+    __ac ns="nix search "
+    __ac ni="nix-env -i "
+fi
