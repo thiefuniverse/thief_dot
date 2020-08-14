@@ -99,6 +99,8 @@
     usbutils
     pciutils
     lsof
+    
+    kitty # one cute terminal
 
     nixfmt # nix format tool
 
