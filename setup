@@ -41,7 +41,7 @@ if [ "$1" == "set" ]; then
     cp ${current_path}/home/config/zshrc ${HOME}/.zshrc
 
     # set default env path file
-     echo -e "
+     echo "\
 # builtin config\n\
 export THIEF_HOME_PATH=${current_path}/home\n\
 # control whether use thief alias or not.\n\
