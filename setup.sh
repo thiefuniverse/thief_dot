@@ -43,7 +43,7 @@ if [ "$1" == "set" ] || [ "$1" == "update" ] ; then
 
     # set kitty terminal
     mkdir -p ${HOME}/.config/kitty
-    cp  ${current_path}/home/config/kitty.conf ${HOME}/.config/kitty/
+    ln ${current_path}/home/config/kitty.conf ${HOME}/.config/kitty/kitty.conf
 
     if [ "$1" == "set" ]; then
     # set default env path file
