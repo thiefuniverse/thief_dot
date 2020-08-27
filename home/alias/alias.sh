@@ -97,6 +97,8 @@ __ac findexe="$THIEF_HOME_PATH/toolbox/general/findexe"
 # tmux
 __ac tmux='tmux -f $THIEF_HOME_PATH/config/tmux.conf'
 
+# for kitty terminal
+__ac icat='kitty +kitten icat'
 
 # for nixos
 is_nixos=$(uname -a | grep "nixos")
