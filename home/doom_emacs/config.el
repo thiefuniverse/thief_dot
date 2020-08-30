@@ -252,7 +252,9 @@
 (use-package! eglot
   :config
   (require 'project)
-  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "/home/sensetime/big_repo/high_soft/clangd_10.0.0/bin/clangd"))
+  (require 'exec-path-from-shell)
+  (add-to-list 'eglot-server-programs `((c++-mode c-mode) ,(exec-path-from-shell-copy-env "CLANGD_PATH") ))
+
   (add-hook 'c-mode-hook 'eglot-ensure)
   (add-hook 'c++-mode-hook 'eglot-ensure)
   (add-hook 'python-mode-hook 'eglot-ensure))
@@ -264,4 +266,3 @@
 (use-package! py-yapf
   :config
   (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
-
