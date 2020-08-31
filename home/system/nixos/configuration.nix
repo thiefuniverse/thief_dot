@@ -20,7 +20,7 @@
 
   # set cache
   nix.binaryCaches =
-    [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store" ];
+    [ "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"];
   #nix.binaryCaches = [ "https://cache.nixos.org" ];
 
   # config zsh
@@ -99,6 +99,12 @@
     usbutils
     pciutils
     lsof
+    ninja
+    python37
+    python27
+    binutils  # tools like ar
+    pkg-config
+    lld
     
     kitty # one cute terminal
 
@@ -121,7 +127,6 @@
     latte-dock # kde decorator
     jumpapp # jump to app window
     evince # pdf reader
-
   ];
 
   # enable v2ray
