@@ -100,11 +100,14 @@
     pciutils
     lsof
     ninja
+	gnumake
     python37
     python27
     binutils  # tools like ar
     pkg-config
     lld
+    tree # tree directory viewer
+    nnn  # file explorer
     
     kitty # one cute terminal
 
@@ -122,11 +125,13 @@
     unzip
     # ark # extractor tool
     irccloud # irc client
-
     netease-cloud-music # music
     latte-dock # kde decorator
     jumpapp # jump to app window
     evince # pdf reader
+    
+    direnv # environment by direcotry
+    glfw3 # invoke opengl
   ];
 
   # enable v2ray
@@ -146,6 +151,8 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # enable opengl
+  hardware.opengl.enable = true;
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio = {
