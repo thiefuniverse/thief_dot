@@ -100,6 +100,8 @@ __ac tmux='tmux -f $THIEF_HOME_PATH/config/tmux.conf'
 # for kitty terminal
 __ac icat='kitty +kitten icat'
 
+__ac m='make -j`nproc`'
+
 # for nixos
 is_nixos=$(uname -a | grep "nixos")
 if [ ! "$is_nixos" = "" ]; then

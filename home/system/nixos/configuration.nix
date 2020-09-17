@@ -89,7 +89,9 @@
     emacs26
     llvm_10
     clang_10
+    clang-tools
     cmake
+    ripgrep # grep tool
 
     # tool
     google-chrome
@@ -100,7 +102,7 @@
     pciutils
     lsof
     ninja
-	gnumake
+	  gnumake
     python37
     python27
     binutils  # tools like ar
@@ -132,6 +134,7 @@
     
     direnv # environment by direcotry
     glfw3 # invoke opengl
+    mplayer # video player
   ];
 
   # enable v2ray
@@ -153,6 +156,7 @@
 
   # enable opengl
   hardware.opengl.enable = true;
+  services.xserver.videoDrivers = ["nvidia"];
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio = {
