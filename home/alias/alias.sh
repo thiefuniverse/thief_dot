@@ -70,6 +70,7 @@ __ac grtt='git reset --hard'
 __ac gau='git add -u'
 __ac gf='git fetch'
 __ac gr='git rebase'
+__ac gm='git branch -m'
 
 # jump to git root directory
 __ac gg='cd $(git rev-parse --show-toplevel)'
@@ -101,6 +102,11 @@ __ac tmux='tmux -f $THIEF_HOME_PATH/config/tmux.conf'
 __ac icat='kitty +kitten icat'
 
 __ac m='make -j`nproc`'
+
+# view memory info by process name
+function mem_pid(){
+    cat /proc/$1/status | grep VmRSS
+}
 
 # for nixos
 is_nixos=$(uname -a | grep "nixos")
