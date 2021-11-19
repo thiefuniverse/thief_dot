@@ -1,4 +1,4 @@
-current_file_name=$(basename "$0")
+current_file_name=$(basename0:00:00  "$0")
 current_path=$(pwd)
 
 # second run this script, you can run setup at anywhere, then
