@@ -21,7 +21,7 @@ incc vim
 incc ffmpeg
 
 # basic net tools
-incc curl wget
+incc curl wget connect
 
 # command: add-apt-repository
 incc software-properties-common
