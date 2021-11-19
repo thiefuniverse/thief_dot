@@ -47,7 +47,7 @@ if [ "$1" == "set" ] || [ "$1" == "update" ] ; then
 
     if [ "$1" == "set" ]; then
     # set default env path file
-     echo "\
+     echo -e "\
 # builtin config\n\
 export THIEF_HOME_PATH=${current_path}/home\n\
 # control whether use thief alias or not.\n\
