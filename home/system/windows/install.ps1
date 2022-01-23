@@ -12,7 +12,7 @@ choco install ninja llvm microsoft-windows-terminal powershell-core v2rayn vscod
 choco install universal-usb-installer -y
 
 # music, video
-choco install netease-cloudmusic potplayer telegram itunes powertoys -y
+choco install netease-cloudmusic potplayer telegram itunes sharpkeys powertoys -y
 
 # tools
 choco install everything windbg processhacker.portable obs-studio f.lux.install blender googlechrome teamviewer -y
