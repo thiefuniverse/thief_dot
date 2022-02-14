@@ -11,13 +11,13 @@
 ;;; *********************************************************
 ;;; * config gc threshold*
 ;;; *********************************************************
-(setq doom-gc-cons-threshold (* 1024 1024 512))
+;;;(setq doom-gc-cons-threshold (* 1024 1024 512))
 
 ;;; *********************************************************
 ;;; * add some path to load path *
 ;;; *********************************************************
-(add-to-list 'load-path (concat (file-name-directory load-file-name)))
-(add-to-list 'load-path (concat (file-name-directory load-file-name) "/self" ))
+(add-load-path! (concat (file-name-directory (or load-file-name (buffer-file-name)))))
+(add-load-path! (concat (file-name-directory (or load-file-name (buffer-file-name))) "/self"))
 
 ;;; *********************************************************
 ;;; * configure line number *
@@ -26,14 +26,10 @@
 (global-display-line-numbers-mode)
 
 ;;; display line number in doom dashboard
-(add-hook '+doom-dashboard-mode-hook '(lambda()
+(add-hook '+doom-dashboard-mode-hook (lambda()
                                           (display-line-numbers-mode -1)))
 ;;; redefine some functions
 (require 'init-reload)
-
-;;; use one specific input method
-;;;(require 'init-input-method)
-
 
 ;;; *********************************************************
 ;;; * set jump *
@@ -42,11 +38,6 @@
 (map! :leader :desc "jump to word" "j w" #'avy-goto-word-1)
 (map! :leader :desc "jump to line" "j l" #'avy-goto-line)
 (map! :leader :desc "jump to screen" "j s" #'ace-window)
-
-(defun jump-hyper-terminal ()
-  (interactive)
-  (shell-command "hyper"))
-(map! :leader :desc "jump to hyper terminal" "C-j" 'jump-hyper-terminal)
 
 ;;; *********************************************************
 ;;; * config treemacs *
@@ -67,66 +58,11 @@
 (map! :map treemacs-mode-map "os" #'treemacs-visit-node-vertical-split)
 
 ;;; *********************************************************
-;;; * save file automatically *
-;;; *********************************************************
-(use-package! super-save
-  :config
-  (super-save-mode +1)
-  (setq super-save-auto-save-when-idle t)
-  (setq super-save-remote-files nil)
-  (add-to-list 'super-save-triggers 'evil-force-normal-state)
-  (add-to-list 'super-save-hook-triggers 'find-file-hook)
-  (add-to-list 'super-save-hook-triggers 'evil-insert-state-exit-hook)
-  (setq auto-save-default nil))
-
-;;; save file after exiting insert state
-;;;(add-hook 'evil-insert-state-exit-hook
-;;;          (lambda ()
-;;;            (call-interactively #'save-buffer)))
-
-;;; *********************************************************
 ;;; * flycheck for c++ *
 ;;; *********************************************************
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
-(use-package! google-c-style
-  :config
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
- )
-
-;;; *********************************************************
-;;; * company headers for c,c++ *
-;;; *********************************************************
-
-;;;------------------------------------------------------------
-;;; config company complete by tab or backtab
-;;;------------------------------------------------------------
-
-;;(defun company-complete-common-or-previous-cycle ()
-;;  "Insert the common part of all candidates, or select the next one."
-;;  (interactive)
-;;  (when (company-manual-begin)
-;;    (let ((tick (buffer-chars-modified-tick)))
-;;      (call-interactively 'company-complete-common)
-;;      (when (eq tick (buffer-chars-modified-tick))
-;;        (let ((company-selection-wrap-around t))
-;;          (call-interactively 'company-select-previous))))))
-
-;;;(setq company-backends nil)
-;;;(add-to-list 'company-backends 'company-yasnippet)
-;;;(add-to-list 'company-backends 'company-c-headers)
-;;;(defun add-hook-to-cplusplus (func-name)
-;;;  "add hook function to c mode and c++ mode"
-;;;  (add-hook 'c-mode-hook func-name)
-;;;  (add-hook 'c++-mode-hook func-name)
-;;;  )
-
-;;;(use-package! company
-;;;  :config
-;;;  (add-hook-to-cplusplus 'company-mode)
-;;;  )
- (add-hook 'c++-mode-hook
+(add-hook 'c++-mode-hook
             (lambda ()
               (set (make-local-variable 'company-backends)
                    '((company-capf company-c-headers company-dabbrev-code company-yasnippet)))))
@@ -138,46 +74,12 @@
 ;;; switch between header file and cpp file
 (map! :leader :desc "switch bewteen header and implementation file" "p s" #'ff-find-other-file)
 
-;;; *********************************************************
-;;; * config for functions args, for c++ completion *
-;;; *********************************************************
-;;  (define-key company-active-map (kbd "<tab>") 'company-complete-common-or-cycle)
-;;  (define-key company-active-map (kbd "<backtab>") 'company-complete-common-or-previous-cycle))
-
 (setq company-idle-delay 0.5)
 
 (add-hook 'js-mode-hook 'prettier-js-mode)
 (add-hook 'js2-mode-hook 'prettier-js-mode)
 (add-hook 'web-mode-hook 'prettier-js-mode)
 (add-hook 'markdown-mode-hook 'prettier-js-mode)
-
-;;(setq +workspaces-switch-project-function #'treemacs-projectile)
-;;(use-package treemacs
-;;  :config
-;;  (progn
-;;    (defun vs//treemacs-add-project (&optional path)
-;;      "Add project from `PATH' to `treemacs'."
-;;      (let* ((path (or path vs-user-home-dir))
-;;             (name (file-name-nondirectory
-;;                    (directory-file-name (if (file-remote-p path)
-;;                                             (car (last (split-string path ":")))
-;;                                           path)))))
-;;        (unless (treemacs-current-workspace)
-;;          (treemacs--find-workspace))
-;;        (treemacs-do-add-project-to-workspace path name)))))
-;;
-;;(use-package treemacs-projectile
-;;  :after (projectile treemacs)
-;;  :bind (:map global-map ([C-tab] . vs/treemacs-open))
-;;  :config
-;;  (progn
-;;    (defun vs/treemacs-open ()
-;;      "Setup project for current file and open `treemacs' buffer."
-;;      (interactive)
-;;      (vs//treemacs-add-project (condition-case _
-;;                                    (expand-file-name (projectile-project-root))
-;;                                  (error (expand-file-name default-directory))))
-;;      (treemacs-select-window))))
 
 ;;; *********************************************************
 ;;; * config clang-format *
@@ -187,49 +89,6 @@
 (defun set-clang-format-style ()
   (defvar-local clang-format-style nil)
   (setq-local clang-format-style (concat (getenv "THIEF_HOME_PATH") "/.clang-format")))
-;;;(add-hook 'clang-format+-mode-hook #'set-clang-format-style)
-
-
-
-;;; *********************************************************
-;;; * config blog *
-;;; *********************************************************
-
-;;; modify default template
-(setq org2blog/wp-buffer-template
-      (format
-       "#+ORG2BLOG:
-#+DATE: %s
-#+OPTIONS: toc:4 num:nil todo:nil pri:nil tags:nil ^:nil
-#+CATEGORY:
-#+TAGS:
-#+DESCRIPTION:
-#+TITLE: "
-       (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))))
-
-(defun org2blog/insert-template ()
-  "insert blog template."
-  (interactive)
-  (insert
-   (funcall org2blog/wp-buffer-format-function
-            org2blog/wp-buffer-template)))
-
-(use-package! org2blog
-  :config
-  (require 'auth-source)
-  (add-to-list 'auth-sources "~/.netrc")
-  (let* ((credentials (auth-source-user-and-password "fly"))
-         (username (nth 0 credentials))
-         (password (nth 1 credentials))
-         (config `("my-blog"
-                   :url "https://thiefuniverse.com/xmlrpc.php"
-                   :username ,username
-                   :password ,password)))
-    (setq org2blog/wp-blog-alist (list config)))
-;;;  (setq org2blog/wp-track-posts (list ".org2blog.org" "posts"))
-;;;  (add-hook 'org2blog/wp-after-new-post-or-page-functions (lambda (p) ()))
-  (map! :leader :desc "org2blog" "o i" #'org2blog/insert-template)
-  (map! :leader :desc "org2blog" "o o" #'org2blog-user-interface))
 
 ;;; *********************************************************
 ;;; * config org mode truncate line *
@@ -242,27 +101,88 @@
             (turn-off-auto-fill)))
 
 ;;; *********************************************************
-;;; *  config for emoji*
+;;; * config org mode *
 ;;; *********************************************************
-;;; (add-hook 'after-init-hook #'global-emojify-mode)
+(setq org-hide-emphasis-markers t)
+(font-lock-add-keywords 'org-mode
+                          '(("^ *\\([-]\\) "
+                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "?"))))))
+(use-package! org-bullets
+    :config
+    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+ (let* ((variable-tuple
+          (cond ((x-list-fonts "ETBembo")         '(:font "ETBembo"))
+                ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
+                ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
+                ((x-list-fonts "Verdana")         '(:font "Verdana"))
+                ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
+                (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
+         (base-font-color     (face-foreground 'default nil 'default))
+         (headline           `(:inherit default :weight bold :foreground ,base-font-color)))
 
-;;; *********************************************************
-;;; * config for eglot, a client for lsp server*
-;;; *********************************************************
-(use-package! eglot
-  :config
-  (require 'project)
-  (require 'exec-path-from-shell)
-  (add-to-list 'eglot-server-programs `((c++-mode c-mode) ,(exec-path-from-shell-copy-env "CLANGD_PATH") ))
+    (custom-theme-set-faces
+     'user
+     `(org-level-8 ((t (,@headline ,@variable-tuple))))
+     `(org-level-7 ((t (,@headline ,@variable-tuple))))
+     `(org-level-6 ((t (,@headline ,@variable-tuple))))
+     `(org-level-5 ((t (,@headline ,@variable-tuple))))
+     `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
+     `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.25))))
+     `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.5))))
+     `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.75))))
+     `(org-document-title ((t (,@headline ,@variable-tuple :height 2.0 :underline nil))))))
 
-  (add-hook 'c-mode-hook 'eglot-ensure)
-  (add-hook 'c++-mode-hook 'eglot-ensure)
-  (add-hook 'python-mode-hook 'eglot-ensure))
+  (custom-theme-set-faces
+   'user
+   '(variable-pitch ((t (:family "ETBembo" :height 180 :weight thin))))
+   '(fixed-pitch ((t ( :family "Fira Code Retina" :height 160)))))
+(add-hook 'org-mode-hook 'variable-pitch-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
+;; Some functionality uses this to identify you, e.g. GPG configuration, email
+;; clients, file templates and snippets.
+(setq user-full-name "thiefuniverse"
+      user-mail-address "thiefuniverses@gmail.com")
 
-;;; *********************************************************
-;;; * yapf format python code *
-;;; * need install yapf*
-;;; *********************************************************
-(use-package! py-yapf
-  :config
-  (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
+;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
+;; are the three important ones:
+;;
+;; + `doom-font'
+;; + `doom-variable-pitch-font'
+;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
+;;   presentations or streaming.
+;;
+;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
+;; font string. You generally only need these two:
+;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+
+;; There are two ways to load a theme. Both assume the theme is installed and
+;; available. You can either set `doom-theme' or manually load a theme with the
+;; `load-theme' function. This is the default:
+(setq doom-theme 'doom-one)
+
+;; If you use `org' and don't want your org files in the default location below,
+;; change `org-directory'. It must be set before org loads!
+(setq org-directory "~/org/")
+
+;; This determines the style of line numbers in effect. If set to `nil', line
+;; numbers are disabled. For relative line numbers, set this to `relative'.
+(setq display-line-numbers-type t)
+
+
+;; Here are some additional functions/macros that could help you configure Doom:
+;;
+;; - `load!' for loading external *.el files relative to this one
+;; - `use-package!' for configuring packages
+;; - `after!' for running code after a package has loaded
+;; - `add-load-path!' for adding directories to the `load-path', relative to
+;;   this file. Emacs searches the `load-path' when you load packages with
+;;   `require' or `use-package'.
+;; - `map!' for binding new keys
+;;
+;; To get information about any of these functions/macros, move the cursor over
+;; the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+;; This will open documentation for it, including demos of how they are used.
+;;
+;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+;; they are implemented.
