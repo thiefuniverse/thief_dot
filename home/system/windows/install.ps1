@@ -6,7 +6,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 # install software
 # programing
-choco install ninja llvm microsoft-windows-terminal powershell-core v2rayn vscode sumatrapdf git git-lfs.install cmake -y
+choco install ninja llvm microsoft-windows-terminal powershell-core v2rayn vscode sumatrapdf git git-lfs.install cmake ripgrep grep fd shellcheck -y
 
 # system
 choco install universal-usb-installer -y
@@ -16,5 +16,8 @@ choco install netease-cloudmusic potplayer telegram itunes sharpkeys powertoys -
 
 # tools
 choco install everything windbg processhacker.portable obs-studio f.lux.install blender googlechrome teamviewer -y
+
+# config emacs
+cmd /c mklink /D %appdata%/.doom.d ../../../doom_emacs
 
 Pause
