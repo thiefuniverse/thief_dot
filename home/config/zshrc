@@ -7,7 +7,14 @@ ZSH_THEME="ys"
 DISABLE_AUTO_UPDATE="true"
 
 # plugins
-plugins=()
+plugins=(
+	fzf
+    git
+    history-substring-search
+    colored-man-pages
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 

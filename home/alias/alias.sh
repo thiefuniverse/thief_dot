@@ -103,6 +103,7 @@ __ac icat='kitty +kitten icat'
 
 __ac m='make -j`nproc`'
 
+
 # view memory info by process name
 function mem_pid(){
     cat /proc/$1/status | grep VmRSS
@@ -115,3 +116,12 @@ if [ ! "$is_nixos" = "" ]; then
     __ac ns="nix search "
     __ac ni="nix-env -i "
 fi
+
+# package management
+is_arch=$(uname -a | grep "arch")
+if [ ! "$is_arch" = "" ]; then
+    __ac i="sudo pacman -S " # install
+    __ac ir="sudo pacman -R " # uninstall
+    __ac is="sudo pacman -Ss " # search
+fi
+

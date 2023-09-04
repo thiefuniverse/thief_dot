@@ -8,6 +8,10 @@ function incc() {
     yes | yay -S $@
 }
 
+incc fakeroot usbutils
+
+# proxy
+incc v2raya
 # basic
 # git : repo management tool
 # jq  : json parser
@@ -21,7 +25,7 @@ incc vim
 incc ffmpeg
 
 # basic net tools
-incc curl wget connect
+incc curl wget 
 
 # command: add-apt-repository
 incc software-properties-common
@@ -45,6 +49,8 @@ incc ack
 # directory compare tool
 incc meld
 
-# doom emacs
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-yes | ~/.emacs.d/bin/doom install
+# for shell
+incc fzf zsh-syntax-highlighting zsh-autosuggestions
+
+# emacs config
+git clone https://github.com/thiefuniverse/emacs.d_2022 ~/.emacs.d

@@ -1,4 +1,4 @@
-current_file_name=$(basename0:00:00  "$0")
+current_file_name=$(basename "$0")
 current_path=$(pwd)
 
 # second run this script, you can run setup at anywhere, then
@@ -43,7 +43,12 @@ if [ "$1" == "set" ] || [ "$1" == "update" ] ; then
 
     # set kitty terminal
     mkdir -p ${HOME}/.config/kitty
-    ln ${current_path}/home/config/kitty.conf ${HOME}/.config/kitty/kitty.conf
+	if [ -f "${HOME}/.config/kitty/kitty.conf" ]; then
+        echo "has set it once."
+    else
+        echo "The kitty link does not exist."
+		ln ${current_path}/home/config/kitty.conf ${HOME}/.config/kitty/kitty.conf
+	fi
 
     if [ "$1" == "set" ]; then
     # set default env path file
@@ -55,8 +60,8 @@ export THIEF_ALIAS_ON=on  # on or off\n \
 # config for git ssh using socks proxy\n\
 export GIT_SSH_COMMAND='ssh -o ProxyCommand=\"connect -S 127.0.0.1:10808 %h %p\"'\n\
 # config for terminal use http proxy\n\
-export https_proxy=http://127.0.0.1:10809\n\
-export http_proxy=http://127.0.0.1:10809\n\
+export https_proxy=http://127.0.0.1:20171\n\
+export http_proxy=http://127.0.0.1:20171\n\
 " > ${env_script}
      fi
      echo "You $1 your personal terminal environment, activate it by running 'source ~/.zshrc'"
