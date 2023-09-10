@@ -11,7 +11,8 @@ function __ac() {
 __ac setup='$THIEF_HOME_PATH/../setup'
 
 # load some shell script
-. $THIEF_HOME_PATH/toolbox/general/h.sh
+#. $THIEF_HOME_PATH/toolbox/general/test.sh
+
 # vim
 __ac vim='vim -u $THIEF_HOME_PATH/vim/vimrc'
 __ac vimrc='vim -u $THIEF_HOME_PATH/vim/vimrc $THIEF_HOME_PATH/vim/vimrc'
@@ -44,7 +45,12 @@ __ac cdn='cd ~/Downloads'
 __ac ssh='ssh -F $THIEF_HOME_PATH/config/ssh_config'
 
 # config jump directory tool
-__ac j='fasd_cd -d -i'
+# fasd & fzf change directory - jump using `fasd` if given argument, filter output of `fasd` using `fzf` else
+function j() {
+    [ $# -gt 0 ] && fasd_cd -d "$*" && return
+    local dir
+    dir="$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" && cd "${dir}" || return 1
+}
 
 # install command for ubuntu
 __ac si='sudo apt-get install'
@@ -123,5 +129,52 @@ if [ ! "$is_arch" = "" ]; then
     __ac i="sudo pacman -S " # install
     __ac ir="sudo pacman -R " # uninstall
     __ac is="sudo pacman -Ss " # search
+    __ac iu="sudo pacman -Syy " # search
 fi
 
+# fzf
+# fh - repeat history
+fh() {
+  eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
+}
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+ff() {
+  files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
+
+
+# 当输入已知命令时，按下空格之后直接回车，避免额外的enter
+# 定义已知命令列表
+known_command=("ls" "date" "j" "ff")
+
+check_known_command() {
+    # 已知的字符串列表
+
+    # 要判断的字符串
+    local current_word
+    current_word=${BUFFER}
+
+    # 判断输入的字符串是否在已知的字符串列表中
+    found=false
+    for item in "${known_command[@]}"; do
+        if [[ "$item" == "$current_word" ]]; then
+            found=true
+            break
+        fi
+    done
+
+    # 输出结果
+    if $found; then
+        BUFFER=$BUFFER$'\n'
+        zle accept-line
+    else
+        zle self-insert
+    fi
+}
+
+zle -N check_known_command
+# 绑定空格键到自定义函数
+bindkey " " check_known_command
