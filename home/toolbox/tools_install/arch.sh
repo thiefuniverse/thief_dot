@@ -8,7 +8,7 @@ function incc() {
     yes | yay -S $@
 }
 
-incc fakeroot usbutils
+incc fakeroot usbutils xsel
 
 # proxy
 incc v2raya
@@ -25,7 +25,7 @@ incc vim
 incc ffmpeg
 
 # basic net tools
-incc curl wget 
+incc curl wget
 
 # command: add-apt-repository
 incc software-properties-common
@@ -40,6 +40,9 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/maste
 
 incc tmux
 
+# compress tool
+incc ark
+
 # file statics tool
 incc ncdu
 
@@ -50,7 +53,17 @@ incc ack
 incc meld
 
 # for shell
-incc fzf zsh-syntax-highlighting zsh-autosuggestions
+incc fzf zsh-syntax-highlighting zsh-autosuggestions kitty
+incc llvm clang ripgrep
+
+# for proxy
+incc openbsd-netcat
+
+# for font
+incc ttf-fira-code
+
+# input method
+incc fcitx5 fcitx5-configtool  fcitx5-gtk fcitx5-qt  fcitx5-rime
 
 # emacs config
 git clone https://github.com/thiefuniverse/emacs.d_2022 ~/.emacs.d

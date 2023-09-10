@@ -76,7 +76,11 @@ openOneFile() {
     CYGWIN*)
         [ -f "${file}" ] && selected=true
         explorer ${selected:+/select,} "$(cygpath -w "${file}")"
-        ;;
+		;;
+    Linux*)
+        [ -f "${file}" ] && selected=true
+ 	    dolphin "$file" &
+        ;; 
     *)
         if [ -d "${file}" ] ; then
             # original it only do opens parent direcotry, I change it.
