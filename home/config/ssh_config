@@ -9,3 +9,9 @@ ControlPersist yes
 # 对于已经有连接的主机，复用之前的session,不需要重新输入密码 
 ControlMaster auto
 ControlPath ~/.ssh/master-%r@%h:%p
+
+
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+  ProxyCommand nc -X 5 -x 127.0.0.1:20170 %h %p

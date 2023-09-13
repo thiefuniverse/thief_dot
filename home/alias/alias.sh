@@ -148,7 +148,7 @@ ff() {
 
 # 当输入已知命令时，按下空格之后直接回车，避免额外的enter
 # 定义已知命令列表
-known_command=("ls" "date" "j" "ff")
+known_command=("l" "date" "j" "ff" "fh")
 
 check_known_command() {
     # 已知的字符串列表
