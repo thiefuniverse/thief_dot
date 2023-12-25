@@ -13,9 +13,17 @@ __ac setup='$THIEF_HOME_PATH/../setup'
 # load some shell script
 #. $THIEF_HOME_PATH/toolbox/general/test.sh
 
+__ac w='which '
+
 # vim
 __ac vim='vim -u $THIEF_HOME_PATH/vim/vimrc'
 __ac vimrc='vim -u $THIEF_HOME_PATH/vim/vimrc $THIEF_HOME_PATH/vim/vimrc'
+__ac v='vim '
+fs() {
+    local file
+    file=$(fasd -Rfl | fzf --height 50% --reverse) && ${EDITOR:-vim} -u $THIEF_HOME_PATH/vim/vimrc "$file"
+}
+
 
 # config bd, fast script for go back to parent directory
 __ac b='. $THIEF_HOME_PATH/toolbox/general/bd -si'
@@ -79,12 +87,13 @@ __ac gr='git rebase'
 __ac gm='git branch -m'
 
 # jump to git root directory
-__ac gg='cd $(git rev-parse --show-toplevel)'
+__ac gg='cd "$(git rev-parse --show-toplevel)"'
 __ac gd='git diff'
 __ac gca='git commit --amend'
 __ac gl='git pull'
 __ac gb='git blame'
 __ac t='tig'
+__ac glo='git clone '
 
 # emacs
 __ac em='emacs'
@@ -109,6 +118,9 @@ __ac icat='kitty +kitten icat'
 
 __ac m='make -j`nproc`'
 
+__ac z='shutdown now'
+__ac mk='mkdir '
+__ac df='df -lh '
 
 # view memory info by process name
 function mem_pid(){
@@ -129,12 +141,12 @@ if [ ! "$is_arch" = "" ]; then
     __ac i="sudo pacman -S " # install
     __ac ir="sudo pacman -R " # uninstall
     __ac is="sudo pacman -Ss " # search
-    __ac iu="sudo pacman -Syy " # search
+    __ac iu="sudo pacman -Syy " # update source
 fi
 
 # fzf
-# fh - repeat history
-fh() {
+# h - repeat history
+h() {
   eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed -E 's/ *[0-9]*\*? *//' | sed -E 's/\\/\\\\/g')
 }
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
@@ -146,9 +158,49 @@ ff() {
 }
 
 
+# Engine/Build/BatchFiles/Linux/Build.sh
+function up() {
+	# 获取仓库根目录
+    repo_root=$(git rev-parse --show-toplevel)
+    # 获取包含uproject后缀的文件并循环处理
+    find "${repo_root}" -maxdepth 2 -name '*.uproject' -type f | while IFS= read -r project_file; do
+        # 获取文件的绝对路径名
+        project_dir=$(dirname "${project_file}")
+        project_name=$(basename "${project_file}" .uproject)
+
+        # 输出文件的绝对路径名
+        echo "File path: ${project_file}"
+        # 执行 cat 和 make 操作
+        cat "${project_file}"
+		Build.sh  -projectfiles -project="${project_dir}/${project_name}.uproject" -game -rocket -progress -Makefile
+   done
+}
+
+function mm() {
+	# 获取仓库根目录
+    repo_root=$(git rev-parse --show-toplevel)
+    # 获取包含uproject后缀的文件并循环处理
+    find "${repo_root}" -maxdepth 2 -name '*.uproject' -type f | while IFS= read -r project_file; do
+        # 获取文件的绝对路径名
+        project_dir=$(dirname "${project_file}")
+        project_name=$(basename "${project_file}" .uproject)
+
+        # 输出文件的绝对路径名
+        echo "File path: ${project_file}"
+        # 执行 cat 和 make 操作
+        cd "${project_dir}"
+        make "$project_name"
+    done
+}
+function setup_cpp_format() {
+	# 获取仓库根目录
+    repo_root=$(git rev-parse --show-toplevel)
+    cp $THIEF_HOME_PATH/.clang-format "${repo_root}/"
+}
+
 # 当输入已知命令时，按下空格之后直接回车，避免额外的enter
 # 定义已知命令列表
-known_command=("l" "date" "j" "ff" "fh")
+known_command=("l" "date" "j" "ff" "fs" "n" "h")
 
 check_known_command() {
     # 已知的字符串列表
@@ -178,3 +230,5 @@ check_known_command() {
 zle -N check_known_command
 # 绑定空格键到自定义函数
 bindkey " " check_known_command
+
+
