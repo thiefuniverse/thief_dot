@@ -82,6 +82,7 @@ function gsp(){ git stash pop stash@{$1}; }
 function gp(){ git push origin HEAD:$1; }
 __ac gsl='git stash list'
 __ac gc='git clone '
+__ac gpm='git push origin HEAD:master'
 __ac gs='git status'
 __ac gss='git stash save '
 __ac gcm='git commit -m'
