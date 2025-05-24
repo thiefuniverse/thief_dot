@@ -19,7 +19,7 @@ __ac w='which '
 __ac vim='vim -u $THIEF_HOME_PATH/vim/vimrc'
 __ac vimrc='vim -u $THIEF_HOME_PATH/vim/vimrc $THIEF_HOME_PATH/vim/vimrc'
 __ac v='vim '
-fs() {
+jf() {
     local file
     file=$(fasd -Rfl | fzf --height 50% --reverse) && ${EDITOR:-vim} -u $THIEF_HOME_PATH/vim/vimrc "$file"
 }
@@ -29,9 +29,10 @@ fs() {
 __ac b='. $THIEF_HOME_PATH/toolbox/general/bd -si'
 
 # pass content to clipboard
-__ac c='$THIEF_HOME_PATH/toolbox/general/c'
+__ac toclipboard='$THIEF_HOME_PATH/toolbox/general/c'
+
 # copy current path to clipboard
-__ac pd='c pwd'
+__ac pd='toclipboard pwd'
 
 # open file explorer with file selected.
 __ac o='$THIEF_HOME_PATH/toolbox/general/xpf'
@@ -51,6 +52,12 @@ __ac emm7='$THIEF_HOME_PATH/toolbox/general/emake.py --ini=$THIEF_HOME_PATH/conf
 __ac cdn='cd ~/Downloads'
 
 __ac ssh='ssh -F $THIEF_HOME_PATH/config/ssh_config'
+
+
+# cargo
+__ac r='$THIEF_HOME_PATH/toolbox/general/cargo.sh'
+__ac rr='$THIEF_HOME_PATH/toolbox/general/cargo.sh 1'
+__ac cb='cargo build'
 
 # config jump directory tool
 # fasd & fzf change directory - jump using `fasd` if given argument, filter output of `fasd` using `fzf` else
@@ -74,17 +81,15 @@ __ac adbscreen="adb shell /system/bin/screencap -p /sdcard/screenshot.png"
 function gsp(){ git stash pop stash@{$1}; }
 function gp(){ git push origin HEAD:$1; }
 __ac gsl='git stash list'
-__ac gch='git checkout'
-__ac gst='git status'
+__ac gc='git clone '
+__ac gs='git status'
 __ac gss='git stash save '
 __ac gcm='git commit -m'
 __ac ga='git add'
 __ac grt='git reset'
-__ac grtt='git reset --hard'
 __ac gau='git add -u'
 __ac gf='git fetch'
 __ac gr='git rebase'
-__ac gm='git branch -m'
 
 # jump to git root directory
 __ac gg='cd "$(git rev-parse --show-toplevel)"'
@@ -93,7 +98,6 @@ __ac gca='git commit --amend'
 __ac gl='git pull'
 __ac gb='git blame'
 __ac t='tig'
-__ac glo='git clone '
 
 # emacs
 __ac em='emacs'
@@ -200,7 +204,7 @@ function setup_cpp_format() {
 
 # 当输入已知命令时，按下空格之后直接回车，避免额外的enter
 # 定义已知命令列表
-known_command=("l" "date" "j" "ff" "fs" "n" "h")
+known_command=("l" "date" "j" "ff" "jf" "n" "h" "ls" "r" "rr")
 
 check_known_command() {
     # 已知的字符串列表
@@ -230,5 +234,3 @@ check_known_command() {
 zle -N check_known_command
 # 绑定空格键到自定义函数
 bindkey " " check_known_command
-
-
