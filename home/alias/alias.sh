@@ -14,6 +14,7 @@ __ac setup='$THIEF_HOME_PATH/../setup'
 #. $THIEF_HOME_PATH/toolbox/general/test.sh
 
 __ac w='which '
+__ac rm='rm -rf '
 
 # vim
 __ac vim='vim -u $THIEF_HOME_PATH/vim/vimrc'
@@ -205,7 +206,7 @@ function setup_cpp_format() {
 
 # 当输入已知命令时，按下空格之后直接回车，避免额外的enter
 # 定义已知命令列表
-known_command=("l" "date" "j" "ff" "jf" "n" "h" "ls" "r" "rr")
+known_command=("l" "date" "j" "ff" "jf" "n" "h" "r" "rr" "gs" )
 
 check_known_command() {
     # 已知的字符串列表
